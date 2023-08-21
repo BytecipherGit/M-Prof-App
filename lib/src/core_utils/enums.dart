@@ -1,0 +1,1 @@
+enum HomeMenuType { jobList, siteAccess }
