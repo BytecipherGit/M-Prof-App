@@ -213,18 +213,42 @@ class AppStyle {
 
   static TextStyle categoryTextStyle = TextStyle(
     color: AppColors.categoryTextColor,
-    fontSize: AppDimens.fontSize20,
+    fontSize: AppDimens.fontSize18,
     fontWeight: FontWeight.w600,
     fontFamily: 'Gilroy-SemiBold',
   );
   static TextStyle seeAllTextStyle = TextStyle(
     color: AppColors.seeAllTextColor,
-    fontSize: AppDimens.fontSize14,
-    fontWeight: FontWeight.w500,
+    fontSize: AppDimens.fontSize12,
+    fontWeight: FontWeight.w400,
     fontFamily: 'Gilroy-Medium',
   );
   static TextStyle categoryTitleTextStyle = TextStyle(
     color: AppColors.categoryTitleTextColor,
+    fontSize: AppDimens.fontSize12,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Gilroy-Medium',
+  );
+  static TextStyle vendorStatusTextStyle = TextStyle(
+    color: AppColors.vendorStatusTitleTextColor,
+    fontSize: AppDimens.fontSize8,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Gilroy-SemiBold',
+  );
+  static TextStyle vendorWorkingHourTextStyle = TextStyle(
+    color: AppColors.vendorWorkingHourTitleTextColor,
+    fontSize: AppDimens.fontSize8,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Gilroy-SemiBold',
+  );
+  static TextStyle vendorNameTextStyle = TextStyle(
+    color: AppColors.vendorNameTextColor,
+    fontSize: AppDimens.fontSize12,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Gilroy-SemiBold',
+  );
+  static TextStyle vendorTypeTextStyle = TextStyle(
+    color: AppColors.vendorTypeTextColor,
     fontSize: AppDimens.fontSize12,
     fontWeight: FontWeight.w500,
     fontFamily: 'Gilroy-Medium',

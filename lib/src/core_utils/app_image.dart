@@ -13,6 +13,15 @@ class AppImage {
   static String womenSalonImage = "assets/images/women_salon.png";
   static String musicImage = "assets/images/music.png";
   static String gymImage = "assets/images/gym.png";
+  static String dr1Image = "assets/images/dr1.png";
+  static String dr2Image = "assets/images/dr2.png";
+  static String dr3Image = "assets/images/dr3.png";
+  static String bar1Image = "assets/images/bar1.png";
+  static String bar2Image = "assets/images/bar2.png";
+  static String bar3Image = "assets/images/bar3.png";
+  static String bar4Image = "assets/images/bar4.png";
+  static String hos1Image = "assets/images/hos1.png";
+  static String hos2Image = "assets/images/hos2.png";
 
   static String appLauncherLogo = "images/logo/appLauncher.png";
   static String drawerHeaderIcon = "images/icon/drawer_header_icon.png";

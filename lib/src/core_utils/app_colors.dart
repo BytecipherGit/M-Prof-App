@@ -25,4 +25,8 @@ class AppColors {
   static Color categoryTextColor = const Color(0XFFE3E1E1);
   static Color seeAllTextColor = const Color(0XFF878282);
   static Color categoryTitleTextColor = const Color(0XFFE8E8E8);
+  static Color vendorStatusTitleTextColor = const Color(0XFF10B548);
+  static Color vendorWorkingHourTitleTextColor = const Color(0XFF1E1E1E);
+  static Color vendorNameTextColor = const Color(0XFF0F0F0F);
+  static Color vendorTypeTextColor = const Color(0XFFADADAD);
 }

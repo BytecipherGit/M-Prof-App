@@ -19,8 +19,8 @@ class CategoryDetailsView extends StatelessWidget {
             shape: const CircleBorder(),
             child: Image.asset(
               category.image ?? AppImage.barberImage,
-              height: AppDimens.height45,
-              width: AppDimens.height45,
+              height: AppDimens.height30,
+              width: AppDimens.height30,
             ),
           ),
           Text(
