@@ -254,7 +254,7 @@ class _HomeViewState extends State<HomeView> {
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    childAspectRatio: (1 / 1.32),
+                                    childAspectRatio: (1 / 1.2),
                                   ),
                                   itemBuilder:
                                       (BuildContext context, int index) {
@@ -298,13 +298,21 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               ListView.builder(
                                   scrollDirection: Axis.vertical,
-                                  itemCount: modal.hospitalList!.length,
+                                  itemCount: modal.hospitalList!.length > 4
+                                      ? 4
+                                      : modal.hospitalList!.length,
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
                                   physics: const ClampingScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     var data = modal.hospitalList![index];
-                                    return HospitalDetails(hospital: data);
+                                    if (index < 5) {
+                                      return HospitalDetails(
+                                        hospital: data,
+                                      );
+                                    } else {
+                                      return Container();
+                                    }
                                   }),
                             ],
                           ),

@@ -15,7 +15,7 @@ class HospitalDetails extends StatelessWidget {
             top: AppDimens.height5,
             bottom: AppDimens.height5),
         margin: EdgeInsets.only(
-            right: AppDimens.width10, bottom: AppDimens.height15),
+            right: AppDimens.width5, bottom: AppDimens.height15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppDimens.radius10),
           color: Colors.white,
@@ -25,7 +25,7 @@ class HospitalDetails extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: AppDimens.height90,
+                  height: AppDimens.height110,
                   width: AppDimens.height100,
                   decoration: BoxDecoration(
                       image: DecorationImage(
@@ -55,44 +55,48 @@ class HospitalDetails extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: AppDimens.width10),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            hospital.status!.toUpperCase(),
-                            style: hospital.status == "CLOSED"
-                                ? AppStyle.vendorStatusTextStyle.copyWith(
-                                    color: const Color(0XFFEA0D0D),
-                                    fontSize: AppDimens.fontSize12)
-                                : AppStyle.vendorStatusTextStyle
-                                    .copyWith(fontSize: AppDimens.fontSize12),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          SizedBox(
-                            width: AppDimens.width5,
-                          ),
-                          Text(
-                            "${hospital.startTime.toString()} - ${hospital.closeTime.toString()}",
-                            style: AppStyle.vendorWorkingHourTextStyle
-                                .copyWith(fontSize: AppDimens.fontSize12),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+                      SizedBox(
+                        width: AppDimens.width170,
+                        child: Row(
+                          children: [
+                            Text(
+                              hospital.status!.toUpperCase(),
+                              style: hospital.status == "CLOSED"
+                                  ? AppStyle.vendorStatusTextStyle.copyWith(
+                                      color: const Color(0XFFEA0D0D),
+                                      fontSize: AppDimens.fontSize12)
+                                  : AppStyle.vendorStatusTextStyle
+                                      .copyWith(fontSize: AppDimens.fontSize12),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            SizedBox(
+                              width: AppDimens.width5,
+                            ),
+                            Text(
+                              "${hospital.startTime.toString()} - ${hospital.closeTime.toString()}",
+                              style: AppStyle.vendorWorkingHourTextStyle
+                                  .copyWith(fontSize: AppDimens.fontSize12),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        hospital.distance.toString(),
-                        style: AppStyle.vendorTypeTextStyle
-                            .copyWith(fontSize: AppDimens.fontSize12),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                      SizedBox(
+                        child: Text(
+                          hospital.distance.toString(),
+                          style: AppStyle.vendorTypeTextStyle
+                              .copyWith(fontSize: AppDimens.fontSize12),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
                   ),
@@ -148,10 +152,12 @@ class HospitalDetails extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                        color: AppColors.vendorTypeTextColor,
-                        size: AppDimens.height15,
+                      Image.asset(
+                        AppImage.locationIcon,
+                        height: AppDimens.height10,
+                      ),
+                      SizedBox(
+                        width: AppDimens.height3,
                       ),
                       SizedBox(
                         width: AppDimens.width140,

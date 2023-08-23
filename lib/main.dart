@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:m_proof/src/view_model_providers/booking_vm/booking_view_model.dart';
 import 'package:m_proof/src/view_model_providers/bottom_vm/bottom_nav_view_model.dart';
+import 'package:m_proof/src/view_model_providers/favorite_vm/favorite_view_model.dart';
 import 'package:m_proof/src/view_model_providers/home_vm/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +15,8 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => BottomProviderVm()),
         ChangeNotifierProvider(create: (_) => HomeProviderVm()),
+        ChangeNotifierProvider(create: (_) => FavoriteProviderVm()),
+        ChangeNotifierProvider(create: (_) => BookingProviderVm()),
       ],
       child: const MyApp(),
     ),

@@ -1,6 +1,10 @@
 import 'package:m_proof/src/helpers/routes/route_name.dart';
 
 import '../../screen/bottom_nav_bar/bottom_nav_bar.dart';
+import '../../screen/bottom_nav_bar/home/barber/barber_details_view.dart';
+import '../../screen/bottom_nav_bar/near_by/components/vender_list_by_category_view.dart';
+import '../../screen/bottom_nav_bar/settings/change_mpin/change_mpin_view.dart';
+import '../../screen/bottom_nav_bar/settings/my_booking/my_booking_view.dart';
 import '../../screen/location_permission/location_permission_view.dart';
 import '../../screen/login/login_view.dart';
 import '../../screen/mpin/mpin_after_signup_view.dart';
@@ -35,6 +39,19 @@ class AppRoute {
             builder: (context) => const LocationPermissionView());
       case RouteName.bottomNavBar:
         return MaterialPageRoute(builder: (context) => const BottomNavBar());
+      case RouteName.myBookingScreen:
+        return MaterialPageRoute(builder: (context) => const MyBookingView());
+      case RouteName.changeMpinScreen:
+        return MaterialPageRoute(builder: (context) => const ChangeMPinView());
+      case RouteName.vendorListByCategoryScreen:
+        String title = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (context) => VendorListByCategoryView(
+                  title: title,
+                ));
+
+      case RouteName.barberDetailsScreen:
+        return MaterialPageRoute( builder: (context) => const BarberDetailsView());
       default:
         return MaterialPageRoute(builder: (context) => const Splash());
     }

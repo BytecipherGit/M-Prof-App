@@ -156,6 +156,12 @@ class AppStyle {
 
   //////////////////
 
+  static TextStyle appBarTitleTextStyle = TextStyle(
+    color: AppColors.appBarTitleTextColor,
+    fontSize: AppDimens.fontSize16,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Gilroy-SemiBold',
+  );
   static TextStyle signUpTextStyle = TextStyle(
       color: AppColors.signUpTextColor,
       fontSize: AppDimens.fontSize16,
@@ -243,7 +249,7 @@ class AppStyle {
   );
   static TextStyle vendorNameTextStyle = TextStyle(
     color: AppColors.vendorNameTextColor,
-    fontSize: AppDimens.fontSize12,
+    fontSize: AppDimens.fontSize14,
     fontWeight: FontWeight.w600,
     fontFamily: 'Gilroy-SemiBold',
   );
@@ -252,5 +258,46 @@ class AppStyle {
     fontSize: AppDimens.fontSize12,
     fontWeight: FontWeight.w500,
     fontFamily: 'Gilroy-Medium',
+  );
+  static TextStyle listTileTitleTextStyle = TextStyle(
+    color: AppColors.skipTextColor,
+    fontSize: AppDimens.fontSize14,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Gilroy-Medium',
+  );
+  static TextStyle labelTitleTextStyle = TextStyle(
+    color: AppColors.labelTitleTextColor,
+    fontSize: AppDimens.fontSize14,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Gilroy-SemiBold',
+  );
+  static TextStyle accountSettingTitleTextStyle = TextStyle(
+    color: AppColors.signInTextColor,
+    fontSize: AppDimens.fontSize18,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Gilroy-SemiBold',
+  );
+  static TextStyle userTextStyle = TextStyle(
+    color: AppColors.vendorNameTextColor,
+    fontSize: AppDimens.fontSize22,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Gilroy-SemiBold',
+  );
+  static TextStyle userEmailTextStyle = TextStyle(
+    color: AppColors.vendorTypeTextColor,
+    fontSize: AppDimens.fontSize14,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Gilroy-Medium',
+  );
+  static TextStyle bookingStatusTextTextStyle = TextStyle(
+    fontSize: AppDimens.fontSize8,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Gilroy-Medium',
+  );
+  static TextStyle filterTextTextStyle = TextStyle(
+    color: AppColors.vendorWorkingHourTitleTextColor,
+    fontSize: AppDimens.fontSize16,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Gilroy-SemiBold',
   );
 }

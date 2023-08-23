@@ -29,4 +29,6 @@ class AppColors {
   static Color vendorWorkingHourTitleTextColor = const Color(0XFF1E1E1E);
   static Color vendorNameTextColor = const Color(0XFF0F0F0F);
   static Color vendorTypeTextColor = const Color(0XFFADADAD);
+  static Color appBarTitleTextColor = const Color(0XFFE3E0E0);
+  static Color labelTitleTextColor = const Color(0XFFBFBCBC);
 }

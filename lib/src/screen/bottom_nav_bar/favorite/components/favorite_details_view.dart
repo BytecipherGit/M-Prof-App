@@ -1,23 +1,20 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../core_utils/export_dependency.dart';
-import '../../../../helpers/routes/route_name.dart';
-import '../../../../network/models/response/dummy/barber_response.dart';
+import '../../../../network/models/response/dummy/favorite_response.dart';
 
-class BarberDetailsView extends StatelessWidget {
-  final BarberListResponse barber;
+class FavoriteDetailsView extends StatelessWidget {
+  final FavoriteResponse favorite;
 
-  const BarberDetailsView({
+  const FavoriteDetailsView({
     super.key,
-    required this.barber,
+    required this.favorite,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, RouteName.barberDetailsScreen);
-      },
+      onTap: () {},
       child: Container(
         margin: EdgeInsets.all(AppDimens.width8),
         decoration: BoxDecoration(
@@ -37,7 +34,7 @@ class BarberDetailsView extends StatelessWidget {
                           topRight: Radius.circular(AppDimens.radius10)),
                       image: DecorationImage(
                         image: AssetImage(
-                          barber.image!,
+                          favorite.image!,
                         ),
                         fit: BoxFit.fill,
                       )),
@@ -47,7 +44,7 @@ class BarberDetailsView extends StatelessWidget {
                     right: 5,
                     child: Icon(
                       Icons.favorite,
-                      color: barber.isFav == 1
+                      color: favorite.isFav == 1
                           ? AppColors.redColor
                           : AppColors.whiteColor,
                     ))
@@ -66,8 +63,8 @@ class BarberDetailsView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        barber.status!.toUpperCase(),
-                        style: barber.status == "CLOSED"
+                        favorite.status!.toUpperCase(),
+                        style: favorite.status == "CLOSED"
                             ? AppStyle.vendorStatusTextStyle.copyWith(
                                 color: const Color(0XFFEA0D0D),
                                 fontSize: AppDimens.fontSize10)
@@ -80,7 +77,7 @@ class BarberDetailsView extends StatelessWidget {
                         width: AppDimens.width5,
                       ),
                       Text(
-                        "${barber.startTime.toString()} - ${barber.closeTime.toString()}",
+                        "${favorite.startTime.toString()} - ${favorite.closeTime.toString()}",
                         style: AppStyle.vendorWorkingHourTextStyle
                             .copyWith(fontSize: AppDimens.fontSize10),
                         maxLines: 1,
@@ -94,7 +91,7 @@ class BarberDetailsView extends StatelessWidget {
                   SizedBox(
                     width: AppDimens.height110,
                     child: Text(
-                      barber.name.toString(),
+                      favorite.name.toString(),
                       style: AppStyle.vendorNameTextStyle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -103,31 +100,37 @@ class BarberDetailsView extends StatelessWidget {
                   SizedBox(
                     height: AppDimens.height3,
                   ),
-                  SizedBox(
-                    width: double.maxFinite,
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          AppImage.locationIcon,
-                          height: AppDimens.height10,
-                        ),
-                        SizedBox(
-                          width: AppDimens.height3,
-                        ),
-                        Text(
-                          barber.location.toString(),
-                          style: AppStyle.vendorTypeTextStyle,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
+                  if (favorite.location != null)
+                    SizedBox(
+                      width: double.maxFinite,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.location_on_outlined,
+                            color: AppColors.vendorTypeTextColor,
+                            size: AppDimens.height15,
+                          ),
+                          Text(
+                            favorite.location.toString(),
+                            style: AppStyle.vendorTypeTextStyle,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                  if (favorite.type != null)
+                    Text(
+                      favorite.type.toString(),
+                      style: AppStyle.vendorTypeTextStyle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   SizedBox(
                     height: AppDimens.height3,
                   ),
                   RatingBar.builder(
-                    initialRating: barber.rating ?? 1.0,
+                    initialRating: favorite.rating ?? 1.0,
                     minRating: 1,
                     direction: Axis.horizontal,
                     allowHalfRating: true,

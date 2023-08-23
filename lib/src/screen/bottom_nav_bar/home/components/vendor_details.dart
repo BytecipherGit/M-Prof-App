@@ -26,7 +26,7 @@ class VendorDetails extends StatelessWidget {
               children: [
                 Container(
                   height: AppDimens.height90,
-                  width: AppDimens.height110,
+                  width: AppDimens.height140,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(
@@ -69,9 +69,11 @@ class VendorDetails extends StatelessWidget {
                 Text(
                   vendor.status!.toUpperCase(),
                   style: vendor.status == "CLOSED"
-                      ? AppStyle.vendorStatusTextStyle
-                          .copyWith(color: const Color(0XFFEA0D0D))
-                      : AppStyle.vendorStatusTextStyle,
+                      ? AppStyle.vendorStatusTextStyle.copyWith(
+                          color: const Color(0XFFEA0D0D),
+                          fontSize: AppDimens.fontSize10)
+                      : AppStyle.vendorStatusTextStyle
+                          .copyWith(fontSize: AppDimens.fontSize10),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
@@ -80,14 +82,15 @@ class VendorDetails extends StatelessWidget {
                 ),
                 Text(
                   "${vendor.startTime.toString()} - ${vendor.closeTime.toString()}",
-                  style: AppStyle.vendorWorkingHourTextStyle,
+                  style: AppStyle.vendorWorkingHourTextStyle
+                      .copyWith(fontSize: AppDimens.fontSize10),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
             SizedBox(
-              height: AppDimens.height5,
+              height: AppDimens.height3,
             ),
             SizedBox(
               width: AppDimens.height110,
@@ -99,7 +102,7 @@ class VendorDetails extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: AppDimens.height5,
+              height: AppDimens.height3,
             ),
             SizedBox(
               width: AppDimens.width100,

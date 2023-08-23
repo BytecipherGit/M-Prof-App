@@ -1,7 +1,7 @@
 import 'package:m_proof/src/screen/bottom_nav_bar/near_by/near_by_view.dart';
 
 import '../../core_utils/export_dependency.dart';
-import '../../screen/bottom_nav_bar/flavorist /flavorist_view.dart';
+import '../../screen/bottom_nav_bar/favorite/favorite_view.dart';
 import '../../screen/bottom_nav_bar/home/home_view.dart';
 import '../../screen/bottom_nav_bar/settings/setting_view.dart';
 
@@ -20,7 +20,7 @@ class BottomProviderVm extends ChangeNotifier {
   List<Widget>? tabs = [
     const HomeView(),
     const NearByView(),
-    const FlavoristView(),
+    const FavoriteView(),
     const SettingView(),
   ];
 
