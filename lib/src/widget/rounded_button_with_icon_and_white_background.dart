@@ -43,7 +43,7 @@ class RoundedButtonWithIconAndWhiteBackground extends StatelessWidget {
             ),
             Text(
               text,
-              style: AppStyle.alarmTitleTextStyle.copyWith(
+              style: AppStyle.appBarTitleTextStyle.copyWith(
                 color: textColor,
                 fontSize: AppDimens.fontSize16,
                 fontWeight: FontWeight.w600,

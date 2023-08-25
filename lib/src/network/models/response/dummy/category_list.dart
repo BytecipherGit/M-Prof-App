@@ -1,15 +1,15 @@
-class CategoryListResponse {
+class CategoryList {
   int? id;
   String? name;
   String? image;
 
-  CategoryListResponse({
+  CategoryList({
     this.id,
     this.name,
     this.image,
   });
 
-  factory CategoryListResponse.fromJson(Map<String, dynamic> json) => CategoryListResponse(
+  factory CategoryList.fromJson(Map<String, dynamic> json) => CategoryList(
     id: json["id"],
     name: json["name"],
     image: json["image"],

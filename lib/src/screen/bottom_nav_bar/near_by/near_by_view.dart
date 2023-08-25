@@ -30,10 +30,14 @@ class _NearByViewState extends State<NearByView> {
       body: Stack(
         children: [
           Container(
-              color: AppColors.bgColor,
-              padding: EdgeInsets.symmetric(
-                  vertical: AppDimens.height20, horizontal: AppDimens.width20),
-              child: ListView(children: [
+            color: AppColors.bgColor,
+            padding: EdgeInsets.symmetric(horizontal: AppDimens.width20),
+            child: ListView(
+              physics: const ClampingScrollPhysics(),
+              children: [
+                SizedBox(
+                  height: AppDimens.height20,
+                ),
                 Text(
                   "Choose Category".toUpperCase(),
                   style: AppStyle.accountSettingTitleTextStyle,
@@ -77,7 +81,9 @@ class _NearByViewState extends State<NearByView> {
                         arguments: "Gym & Yoga");
                   },
                 ),
-              ])),
+              ],
+            ),
+          ),
           CustomPaint(
             painter: AppBarPainter(),
             child: Container(height: 0),

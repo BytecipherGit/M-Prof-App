@@ -14,7 +14,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     if (kDebugMode) {}
     Future.delayed(const Duration(seconds: 3)).then((value) {
-      Navigator.pushReplacementNamed(context, RouteName.loginScreen);
+      Navigator.pushReplacementNamed(context, RouteName.bottomNavBar);
     });
     super.initState();
   }

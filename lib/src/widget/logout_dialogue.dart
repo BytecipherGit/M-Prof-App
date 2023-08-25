@@ -19,7 +19,7 @@ class LogOutDialogue {
             children: [
               Text(
                 'Log Out',
-                style: AppStyle.alarmTitleTextStyle.copyWith(
+                style: AppStyle.appBarTitleTextStyle.copyWith(
                     fontSize: AppDimens.fontSize16,
                     color: const Color(0xFF5E5E5E),
                     fontWeight: FontWeight.w600),
@@ -29,7 +29,7 @@ class LogOutDialogue {
               ),
               Text(
                 'Are you sure you want to Log Out ?',
-                style: AppStyle.alarmTitleTextStyle.copyWith(
+                style: AppStyle.appBarTitleTextStyle.copyWith(
                     fontSize: AppDimens.fontSize14,
                     color: const Color(0xff878787),
                     fontWeight: FontWeight.w400),

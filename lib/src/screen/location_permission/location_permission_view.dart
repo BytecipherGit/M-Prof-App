@@ -31,13 +31,15 @@ class _LocationPermissionViewState extends State<LocationPermissionView> {
               padding: EdgeInsets.symmetric(
                   vertical: AppDimens.height20, horizontal: AppDimens.width10),
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, RouteName.bottomNavBar);
+                          Navigator.pushNamedAndRemoveUntil(context,
+                              RouteName.bottomNavBar, (route) => false);
                         },
                         child: Text(
                           "SKIP TO DASHBOARD",

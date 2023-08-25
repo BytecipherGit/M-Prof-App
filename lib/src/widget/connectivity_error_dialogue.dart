@@ -1,4 +1,3 @@
-
 import '../core_utils/export_dependency.dart';
 
 class NetworkErrorDialog extends StatelessWidget {
@@ -21,21 +20,21 @@ class NetworkErrorDialog extends StatelessWidget {
           SizedBox(height: AppDimens.height20),
           Text(
             "Whoops!",
-            style: AppStyle.alarmTitleTextStyle.copyWith(
+            style: AppStyle.appBarTitleTextStyle.copyWith(
                 fontSize: AppDimens.fontSize16, fontWeight: FontWeight.w700),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: AppDimens.height15),
           Text(
             "No internet connection found.",
-            style: AppStyle.alarmTitleTextStyle.copyWith(
+            style: AppStyle.appBarTitleTextStyle.copyWith(
                 fontSize: AppDimens.fontSize14, fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: AppDimens.height8),
           Text(
             "Check your connection and try again.",
-            style: AppStyle.alarmTitleTextStyle
+            style: AppStyle.appBarTitleTextStyle
                 .copyWith(fontSize: AppDimens.fontSize12),
             textAlign: TextAlign.center,
           ),

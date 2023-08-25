@@ -16,7 +16,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title, style: AppStyle.alarmTitleTextStyle),
+      title: Text(title, style: AppStyle.appBarTitleTextStyle),
       centerTitle: true,
       elevation: 0,
       leading: child,

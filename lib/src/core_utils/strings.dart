@@ -11,7 +11,7 @@ class Strings {
   static const String signUpDeviceId = "signUpDeviceId";
 
   //Login
-  static const String firstName = "firstName";
+  static const String fullName = "fullName";
   static const String lastName = "lastName";
   static const String email = "email";
   static const String phone = "phone";

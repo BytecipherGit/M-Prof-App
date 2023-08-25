@@ -1,4 +1,4 @@
-class BookingResponse {
+class BookingList {
   int? id;
   String? startTime;
   String? endTime;
@@ -8,7 +8,7 @@ class BookingResponse {
   String? status;
   DateTime? timestamp;
 
-  BookingResponse({
+  BookingList({
     this.id,
     this.startTime,
     this.endTime,
@@ -19,8 +19,8 @@ class BookingResponse {
     this.timestamp,
   });
 
-  factory BookingResponse.fromJson(Map<String, dynamic> json) =>
-      BookingResponse(
+  factory BookingList.fromJson(Map<String, dynamic> json) =>
+      BookingList(
         id: json["id"],
         startTime: json["start_time"],
         endTime: json["end_time"],

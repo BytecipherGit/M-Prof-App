@@ -1,10 +1,10 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../core_utils/export_dependency.dart';
-import '../../../../network/models/response/dummy/favorite_response.dart';
+import '../../../../network/models/response/dummy/favorite_list.dart';
 
 class FavoriteDetailsView extends StatelessWidget {
-  final FavoriteResponse favorite;
+  final FavoriteList favorite;
 
   const FavoriteDetailsView({
     super.key,

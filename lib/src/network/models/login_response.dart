@@ -1,89 +1,51 @@
-import 'dart:convert';
-
-LoginResponse loginResponseFromJson(String str) =>
-    LoginResponse.fromJson(json.decode(str));
-
-String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
-
 class LoginResponse {
-  int? status;
+  bool? success;
+  int? code;
+  LoginData? data;
   String? message;
-  List<UserDetails>? data;
+  String? accessToken;
 
   LoginResponse({
-    this.status,
-    this.message,
+    this.success,
+    this.code,
     this.data,
+    this.message,
+    this.accessToken,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
-        status: json["status"],
+        success: json["success"],
+        code: json["code"],
+        data: json["data"] == null ? null : LoginData.fromJson(json["data"]),
         message: json["message"],
-        data: json["data"] == null
-            ? null
-            : List<UserDetails>.from(
-                json["data"].map((x) => UserDetails.fromJson(x))),
+        accessToken: json["access_token"],
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status,
+        "success": success,
+        "code": code,
+        "data": data!.toJson(),
         "message": message,
-        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
+        "access_token": accessToken,
       };
 }
 
-class UserDetails {
-  String? firstName;
-  String? lastName;
-  String? email;
-  String? phone;
-  String? address;
-  String? companyName;
-  String? suretekToken;
-  String? address2;
-  String? city;
-  String? state;
-  String? postcode;
+class LoginData {
+  int? isMobileVerify;
+  String? mpin;
 
-  UserDetails({
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.phone,
-    this.address,
-    this.companyName,
-    this.suretekToken,
-    this.address2,
-    this.city,
-    this.state,
-    this.postcode,
+  LoginData({
+    this.isMobileVerify,
+    this.mpin,
   });
 
-  factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
-        firstName: json["firstName"],
-        lastName: json["lastName"],
-        email: json["email"],
-        phone: json["phone"],
-        address: json["address"],
-        companyName: json["companyName"],
-        suretekToken: json["suretekToken"],
-        address2: json["address2"],
-        city: json["city"],
-        state: json["state"],
-        postcode: json["postcode"],
+  factory LoginData.fromJson(Map<String, dynamic> json) => LoginData(
+        isMobileVerify: json["is_mobile_verify"],
+        mpin: json["mpin"],
       );
 
   Map<String, dynamic> toJson() => {
-        "firstName": firstName,
-        "lastName": lastName,
-        "email": email,
-        "phone": phone,
-        "address": address,
-        "companyName": companyName,
-        "suretekToken": suretekToken,
-        "address2": address2,
-        "city": city,
-        "state": state,
-        "postcode": postcode,
+        "is_mobile_verify": isMobileVerify,
+        "mpin": mpin,
       };
 }

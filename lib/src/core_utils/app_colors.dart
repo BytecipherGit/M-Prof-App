@@ -31,4 +31,9 @@ class AppColors {
   static Color vendorTypeTextColor = const Color(0XFFADADAD);
   static Color appBarTitleTextColor = const Color(0XFFE3E0E0);
   static Color labelTitleTextColor = const Color(0XFFBFBCBC);
+  static Color barberTitleTextColor = const Color(0XFF686868);
+  static Color specializationTitleTextColor = const Color(0XFF586068);
+  static Color reviewCommentTextColor = const Color(0XFFADADAD);
+  static Color reviewTimeAgoTextColor = const Color(0XFF8B97A4);
+  static Color reviewerNameTextColor = const Color(0XFF0F0F0F);
 }

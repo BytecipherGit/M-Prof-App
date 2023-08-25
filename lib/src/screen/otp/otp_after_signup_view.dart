@@ -57,9 +57,9 @@ class _OTPAfterSignUpViewState extends State<OTPAfterSignUpView> {
         children: [
           Container(
               color: AppColors.bgColor,
-              padding: EdgeInsets.symmetric(
-                  vertical: AppDimens.height20, horizontal: AppDimens.width10),
+              padding: EdgeInsets.symmetric(horizontal: AppDimens.width10),
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: [
                   SizedBox(
                     height: AppDimens.height20,
@@ -161,7 +161,7 @@ class _OTPAfterSignUpViewState extends State<OTPAfterSignUpView> {
                     height: AppDimens.height30,
                   ),
                   SizedBox(
-                    height: AppDimens.height270,
+                    height: AppDimens.height250,
                   ),
                   NewRoundedButton(
                     color: AppColors.primaryColor,
@@ -171,6 +171,9 @@ class _OTPAfterSignUpViewState extends State<OTPAfterSignUpView> {
                       Navigator.pushNamed(
                           context, RouteName.mpinAfterSignUpScreen);
                     },
+                  ),
+                  SizedBox(
+                    height: AppDimens.height10,
                   ),
                 ],
               )),

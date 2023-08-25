@@ -2,10 +2,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../core_utils/export_dependency.dart';
 import '../../../../helpers/routes/route_name.dart';
-import '../../../../network/models/response/dummy/barber_response.dart';
+import '../../../../network/models/response/dummy/barber_list.dart';
 
 class BarberDetailsView extends StatelessWidget {
-  final BarberListResponse barber;
+  final BarberList barber;
 
   const BarberDetailsView({
     super.key,

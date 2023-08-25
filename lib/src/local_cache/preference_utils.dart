@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import '../core_utils/strings.dart';
-import '../network/models/login_response.dart';
 import '../network/models/response/cams/cams_login_response.dart';
 import '../network/models/response/profile/update_profile_response.dart';
 import '../network/models/response/site_access/site_access_login_response.dart';
@@ -166,7 +165,7 @@ class PreferenceUtils {
   }
 
   static String? getUserFirstName() {
-    return PreferenceUtils.getString(Strings.firstName) ?? "";
+    return PreferenceUtils.getString(Strings.fullName) ?? "";
   }
 
   static String? getUserLastName() {
@@ -185,35 +184,35 @@ class PreferenceUtils {
     return PreferenceUtils.getString(Strings.adminSiteAppUrl) ?? "";
   }
 
-  static Future setLoginResponse(LoginResponse loginResponse) async {
-    await PreferenceUtils.setString(
-        Strings.firstName, loginResponse.data!.first.firstName ?? "");
-    await PreferenceUtils.setString(
-        Strings.lastName, loginResponse.data!.first.lastName ?? "");
-    await PreferenceUtils.setString(
-        Strings.email, loginResponse.data!.first.email ?? "");
-    await PreferenceUtils.setString(
-        Strings.phone, loginResponse.data!.first.phone ?? "");
-    await PreferenceUtils.setString(
-        Strings.address, loginResponse.data!.first.address ?? "");
-    await PreferenceUtils.setString(
-        Strings.address2, loginResponse.data!.first.address2 ?? "");
-    await PreferenceUtils.setString(
-        Strings.city, loginResponse.data!.first.city ?? "");
-    await PreferenceUtils.setString(
-        Strings.state, loginResponse.data!.first.state ?? "");
-    await PreferenceUtils.setString(
-        Strings.postcode, loginResponse.data!.first.postcode ?? "");
-    await PreferenceUtils.setString(
-        Strings.companyName, loginResponse.data!.first.companyName ?? "");
-    await PreferenceUtils.setString(
-        Strings.suretekToken, loginResponse.data!.first.suretekToken ?? "");
-  }
+  // static Future setLoginResponse(LoginResponse loginResponse) async {
+  //   await PreferenceUtils.setString(
+  //       Strings.fullName, loginResponse.data!.first.fullName ?? "");
+  //   await PreferenceUtils.setString(
+  //       Strings.lastName, loginResponse.data!.first.lastName ?? "");
+  //   await PreferenceUtils.setString(
+  //       Strings.email, loginResponse.data!.first.email ?? "");
+  //   await PreferenceUtils.setString(
+  //       Strings.phone, loginResponse.data!.first.phone ?? "");
+  //   await PreferenceUtils.setString(
+  //       Strings.address, loginResponse.data!.first.address ?? "");
+  //   await PreferenceUtils.setString(
+  //       Strings.address2, loginResponse.data!.first.address2 ?? "");
+  //   await PreferenceUtils.setString(
+  //       Strings.city, loginResponse.data!.first.city ?? "");
+  //   await PreferenceUtils.setString(
+  //       Strings.state, loginResponse.data!.first.state ?? "");
+  //   await PreferenceUtils.setString(
+  //       Strings.postcode, loginResponse.data!.first.postcode ?? "");
+  //   await PreferenceUtils.setString(
+  //       Strings.companyName, loginResponse.data!.first.companyName ?? "");
+  //   await PreferenceUtils.setString(
+  //       Strings.suretekToken, loginResponse.data!.first.suretekToken ?? "");
+  // }
 
   static Future setUpdateProfileResponse(
       UpdateProfileResponse loginResponse) async {
     await PreferenceUtils.setString(
-        Strings.firstName, loginResponse.data!.first.firstName ?? "");
+        Strings.fullName, loginResponse.data!.first.firstName ?? "");
     await PreferenceUtils.setString(
         Strings.lastName, loginResponse.data!.first.lastName ?? "");
     await PreferenceUtils.setString(
@@ -235,7 +234,7 @@ class PreferenceUtils {
   }
 
   static Future<UserProfileView> getUserProfile() async {
-    var firstName = PreferenceUtils.getString(Strings.firstName);
+    var firstName = PreferenceUtils.getString(Strings.fullName);
     var lastName = PreferenceUtils.getString(Strings.lastName);
     var email = PreferenceUtils.getString(Strings.email);
     var phone = PreferenceUtils.getString(Strings.phone);

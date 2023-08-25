@@ -210,7 +210,7 @@ class _OTPViewState extends State<OTPView> {
                               textColor: AppColors.whiteColor,
                               onPressedFunction: () {
                                 Navigator.pushNamed(
-                                    context, RouteName.mpinScreen);
+                                    context, RouteName.bottomNavBar);
                               },
                             ),
                             SizedBox(

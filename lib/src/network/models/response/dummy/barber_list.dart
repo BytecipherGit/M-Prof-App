@@ -1,4 +1,4 @@
-class BarberListResponse {
+class BarberList {
   int? id;
   String? image;
   String? startTime;
@@ -9,7 +9,7 @@ class BarberListResponse {
   int? isFav;
   String? status;
 
-  BarberListResponse({
+  BarberList({
     this.id,
     this.image,
     this.startTime,
@@ -21,8 +21,8 @@ class BarberListResponse {
     this.status,
   });
 
-  factory BarberListResponse.fromJson(Map<String, dynamic> json) =>
-      BarberListResponse(
+  factory BarberList.fromJson(Map<String, dynamic> json) =>
+      BarberList(
         id: json["id"],
         image: json["image"],
         startTime: json["start_time"],

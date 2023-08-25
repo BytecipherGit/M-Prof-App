@@ -37,9 +37,9 @@ class _SignUpViewState extends State<SignUpView> {
         children: [
           Container(
               color: AppColors.bgColor,
-              padding: EdgeInsets.symmetric(
-                  vertical: AppDimens.height20, horizontal: AppDimens.width10),
+              padding: EdgeInsets.symmetric(horizontal: AppDimens.width10),
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: [
                   SizedBox(
                     height: AppDimens.height20,
@@ -97,7 +97,7 @@ class _SignUpViewState extends State<SignUpView> {
                       textInputAction: TextInputAction.done,
                       keyboardType: TextInputType.emailAddress),
                   SizedBox(
-                    height: AppDimens.height220,
+                    height: AppDimens.height200,
                   ),
                   NewRoundedButton(
                     color: AppColors.primaryColor,
@@ -107,6 +107,9 @@ class _SignUpViewState extends State<SignUpView> {
                       Navigator.pushNamed(
                           context, RouteName.otpAfterSignUpScreen);
                     },
+                  ),
+                  SizedBox(
+                    height: AppDimens.height10,
                   ),
                 ],
               )),

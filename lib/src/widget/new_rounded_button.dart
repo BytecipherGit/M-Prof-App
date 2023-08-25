@@ -30,7 +30,7 @@ class NewRoundedButton extends StatelessWidget {
           children: [
             Text(
               text,
-              style: AppStyle.alarmTitleTextStyle.copyWith(
+              style: AppStyle.appBarTitleTextStyle.copyWith(
                 color: AppColors.whiteColor,
                 fontSize: AppDimens.fontSize16,
                 fontWeight: FontWeight.w600,

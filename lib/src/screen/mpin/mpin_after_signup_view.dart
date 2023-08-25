@@ -53,9 +53,9 @@ class _MpinAfterSignUpViewState extends State<MpinAfterSignUpView> {
         children: [
           Container(
               color: AppColors.bgColor,
-              padding: EdgeInsets.symmetric(
-                  vertical: AppDimens.height20, horizontal: AppDimens.width10),
+              padding: EdgeInsets.symmetric(horizontal: AppDimens.width10),
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: [
                   SizedBox(
                     height: AppDimens.height20,
@@ -81,6 +81,7 @@ class _MpinAfterSignUpViewState extends State<MpinAfterSignUpView> {
                         focusedPinTheme: focusedPinTheme,
                         submittedPinTheme: submittedPinTheme,
                         controller: mpinController,
+                        textInputAction: TextInputAction.next,
                         validator: (s) {
                           return null;
                           // return s == '123456' ? null : 'Pin is incorrect';
@@ -108,6 +109,7 @@ class _MpinAfterSignUpViewState extends State<MpinAfterSignUpView> {
                         focusedPinTheme: focusedPinTheme,
                         submittedPinTheme: submittedPinTheme,
                         controller: reMpinController,
+                        textInputAction: TextInputAction.done,
                         validator: (s) {
                           return null;
                           // return s == '123456' ? null : 'Pin is incorrect';
@@ -119,7 +121,7 @@ class _MpinAfterSignUpViewState extends State<MpinAfterSignUpView> {
                     ],
                   ),
                   SizedBox(
-                    height: AppDimens.height270,
+                    height: AppDimens.height250,
                   ),
                   NewRoundedButton(
                     color: AppColors.primaryColor,
@@ -129,6 +131,9 @@ class _MpinAfterSignUpViewState extends State<MpinAfterSignUpView> {
                       Navigator.pushNamed(
                           context, RouteName.locationPermissionScreen);
                     },
+                  ),
+                  SizedBox(
+                    height: AppDimens.height10,
                   ),
                 ],
               )),

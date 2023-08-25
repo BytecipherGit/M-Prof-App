@@ -23,6 +23,15 @@ class AppImage {
   static String hos1Image = "assets/images/hos1.png";
   static String hos2Image = "assets/images/hos2.png";
   static String hos3Image = "assets/images/hos3.png";
+  static String sp1Image = "assets/images/sp1.png";
+  static String sp2Image = "assets/images/sp2.png";
+  static String sp3Image = "assets/images/sp3.png";
+  static String sp4Image = "assets/images/sp4.png";
+  static String dummyUserImage = "assets/images/dummy_user.jpg";
+  static String mapImage = "assets/images/map.png";
+
+
+
   static String hospitalIcon = "assets/icons/hospital.png";
   static String shopIcon = "assets/icons/shop.png";
   static String musicIcon = "assets/icons/music.png";
@@ -34,11 +43,11 @@ class AppImage {
   static String settingMenuIcon = "assets/icons/setting_menu.png";
   static String logoutIcon = "assets/icons/logout.png";
   static String editIcon = "assets/icons/edit.png";
-  static String dummyUserImage = "assets/images/dummy_user.jpg";
   static String locationIcon = "assets/icons/location.png";
   static String expandAllIcon = "assets/icons/expand_all.png";
   static String timeIcon = "assets/icons/time.png";
   static String phoneIcon = "assets/icons/phone.png";
+  static String commentIcon = "assets/icons/comment.png";
 
   static String appLauncherLogo = "images/logo/appLauncher.png";
   static String drawerHeaderIcon = "images/icon/drawer_header_icon.png";

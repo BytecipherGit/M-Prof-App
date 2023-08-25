@@ -1,8 +1,8 @@
 import '../../../../core_utils/export_dependency.dart';
-import '../../../../network/models/response/dummy/category_response.dart';
+import '../../../../network/models/response/dummy/category_list.dart';
 
 class CategoryDetailsView extends StatelessWidget {
-  final CategoryListResponse category;
+  final CategoryList category;
   const CategoryDetailsView({super.key, required this.category});
 
   @override

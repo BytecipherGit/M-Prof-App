@@ -1,10 +1,10 @@
-import 'package:m_proof/src/network/models/response/dummy/favorite_response.dart';
+import 'package:m_proof/src/network/models/response/dummy/favorite_list.dart';
 
 import '../../core_utils/export_dependency.dart';
 
 class FavoriteProviderVm extends ChangeNotifier {
-  List<FavoriteResponse>? favList = [
-    FavoriteResponse(
+  List<FavoriteList>? favList = [
+    FavoriteList(
         name: "Nathan Reinhardt V",
         image: AppImage.dr1Image,
         id: 1,
@@ -14,7 +14,7 @@ class FavoriteProviderVm extends ChangeNotifier {
         rating: 4.9,
         type: "Orthopaedic ",
         status: "OPEN NOW"),
-    FavoriteResponse(
+    FavoriteList(
         id: 1,
         name: "The Barber Shop",
         startTime: "09:00",
@@ -24,7 +24,7 @@ class FavoriteProviderVm extends ChangeNotifier {
         location: "bangalore airport ar...",
         image: AppImage.bar1Image,
         status: "OPEN NOW"),
-    FavoriteResponse(
+    FavoriteList(
         id: 1,
         name: "The Barber Shop",
         startTime: "09:00",
@@ -34,7 +34,7 @@ class FavoriteProviderVm extends ChangeNotifier {
         location: "bangalore airport ar...",
         image: AppImage.bar3Image,
         status: "OPEN NOW"),
-    FavoriteResponse(
+    FavoriteList(
         name: "Christian Strogies",
         image: AppImage.dr2Image,
         id: 2,
@@ -44,7 +44,7 @@ class FavoriteProviderVm extends ChangeNotifier {
         rating: 3.9,
         type: "Orthopaedic ",
         status: "OPEN NOW"),
-    FavoriteResponse(
+    FavoriteList(
         id: 2,
         name: "Good Place",
         startTime: "09:00",
@@ -54,7 +54,7 @@ class FavoriteProviderVm extends ChangeNotifier {
         location: "bangalore airport ar...",
         image: AppImage.bar2Image,
         status: "OPEN NOW"),
-    FavoriteResponse(
+    FavoriteList(
         name: "Leonhard Jander",
         image: AppImage.dr3Image,
         id: 3,
@@ -64,7 +64,7 @@ class FavoriteProviderVm extends ChangeNotifier {
         rating: 4.3,
         type: "Doctor of Medicine ",
         status: "CLOSED"),
-    FavoriteResponse(
+    FavoriteList(
         id: 1,
         name: "The Barber Shop",
         startTime: "09:00",

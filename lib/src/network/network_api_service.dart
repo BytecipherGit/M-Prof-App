@@ -43,8 +43,8 @@ class NetworkApiService extends BaseApiServices {
       } else {
         Toasts.getWarningToast(text: "No Internet Connection Available :(");
       }
-    } on DioError catch (ex) {
-      if (ex.type == DioErrorType.connectionTimeout) {
+    } on DioException catch (ex) {
+      if (ex.type == DioExceptionType.connectionTimeout) {
         throw Exception("Connection  Timeout Exception");
       }
       AppLogger.logger.d("OnGetError: $ex");
@@ -80,8 +80,8 @@ class NetworkApiService extends BaseApiServices {
       } else {
         Toasts.getWarningToast(text: "No Internet Connection Available :(");
       }
-    } on DioError catch (ex) {
-      if (ex.type == DioErrorType.connectionTimeout) {
+    } on DioException catch (ex) {
+      if (ex.type == DioExceptionType.connectionTimeout) {
         throw Exception("Connection  Timeout Exception");
       }
       AppLogger.logger.d("OnPostError: $ex");
@@ -151,7 +151,7 @@ class NetworkApiService extends BaseApiServices {
       } else {
         Toasts.getWarningToast(text: "No Internet Connection Available :(");
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response != null) {
         var response = e.response;
         return returnErrorResponse(response!);

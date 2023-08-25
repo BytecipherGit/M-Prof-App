@@ -1,8 +1,8 @@
 import '../../../../../core_utils/export_dependency.dart';
-import '../../../../../network/models/response/dummy/booking_response.dart';
+import '../../../../../network/models/response/dummy/booking_list.dart';
 
 class BookingDetailsView extends StatelessWidget {
-  final BookingResponse booking;
+  final BookingList booking;
 
   const BookingDetailsView({
     super.key,

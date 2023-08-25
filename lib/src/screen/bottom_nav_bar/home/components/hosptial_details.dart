@@ -1,14 +1,17 @@
 import '../../../../core_utils/export_dependency.dart';
-import '../../../../network/models/response/dummy/hospital_reponse.dart';
+import '../../../../helpers/routes/route_name.dart';
+import '../../../../network/models/response/dummy/hospital_list.dart';
 
 class HospitalDetails extends StatelessWidget {
-  final HospitalResponse hospital;
+  final HospitalList hospital;
   const HospitalDetails({super.key, required this.hospital});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, RouteName.hospitalDetailsScreen);
+      },
       child: Container(
         padding: EdgeInsets.only(
             left: AppDimens.width5,

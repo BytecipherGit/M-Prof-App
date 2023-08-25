@@ -1,11 +1,10 @@
 class AppNetworkUrls {
-  static const _baseUrl = 'http://103.47.1.11:84/TechLinkServer.svc';
+  static const _baseUrl = 'http://192.168.1.65:8000';
   static get baseUrl => _baseUrl;
-  static const camsBaseUrl = '';
-  static const loginEndPint = '$_baseUrl/signIn';
-
-  static const registerApiEndPoint = '$_baseUrl/signUp';
-  static const verifyOTPApiEndPoint = '$_baseUrl/verifyOTP';
+  static const loginEndPint = '$_baseUrl/api/login';
+  static const registerApiEndPoint = '$_baseUrl/api/register';
+  static const verifyRegisterOTPApiEndPoint = '$_baseUrl/api/verify-register-otp';
+  static const verifyLoginOTPApiEndPoint = '$_baseUrl/api/verify-login-otp';
   static const forgotPasswordApiEndPoint = '$_baseUrl/sendOTP';
   static const resetPasswordApiEndPoint = '$_baseUrl/resetPassword';
   static const changePasswordApiEndPoint = '$_baseUrl/changePassword';
