@@ -1,10 +1,10 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:m_proof/src/helpers/routes/route_name.dart';
 import 'package:m_proof/src/view_model_providers/home_vm/home_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core_utils/export_dependency.dart';
 import '../../../../widget/new_rounded_button.dart';
-import '../../../../widget/wave_clip.dart';
 import '../../near_by/near_by_view.dart';
 import 'components/our_specialist_view.dart';
 import 'components/review_list.dart';
@@ -462,7 +462,9 @@ class BarberDetailsView extends StatelessWidget {
                       color: AppColors.primaryColor,
                       text: "Book Appointment",
                       textColor: AppColors.whiteColor,
-                      onPressedFunction: () {},
+                      onPressedFunction: () {
+                        Navigator.pushNamed(context, RouteName.barberMenuListScreen);
+                      },
                     ),
                   ],
                 );

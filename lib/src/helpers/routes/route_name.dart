@@ -19,6 +19,7 @@ class RouteName {
   static const String changeMpinScreen = "/changeMpin";
   static const String vendorListByCategoryScreen = "/vendorListByCategory";
   static const String barberDetailsScreen = "/barberDetails";
+  static const String barberMenuListScreen = "/barberMenuList";
   static const String hospitalDetailsScreen = "/hospitalDetails";
   static const String musicDetailsScreen = "/musicDetails";
 }

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../core_utils/export_dependency.dart';
 import '../../../../widget/new_rounded_button.dart';
-import '../../../../widget/wave_clip.dart';
 import '../../near_by/near_by_view.dart';
 import 'components/our_specialist_view.dart';
 import 'components/review_list.dart';
@@ -185,6 +184,95 @@ class HospitalDetailsView extends StatelessWidget {
                     SizedBox(
                       height: AppDimens.height20,
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: AppColors.whiteColor,
+                                  shape: BoxShape.circle,
+                                  border:
+                                      Border.all(color: AppColors.borderColor)),
+                              padding: EdgeInsets.all(AppDimens.height15),
+                              child: Image.asset(
+                                AppImage.hospitalisationImage,
+                                height: AppDimens.height30,
+                                width: AppDimens.height30,
+                              ),
+                            ),
+                            Text(
+                              "500+",
+                              style: AppStyle.patientCountTextStyle,
+                            ),
+                            Text(
+                              "Patients",
+                              style: AppStyle.patientTitleTextStyle,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: AppColors.whiteColor,
+                                  shape: BoxShape.circle,
+                                  border:
+                                      Border.all(color: AppColors.borderColor)),
+                              padding: EdgeInsets.all(AppDimens.height15),
+                              child: Image.asset(
+                                AppImage.qualityImage,
+                                height: AppDimens.height30,
+                                width: AppDimens.height30,
+                              ),
+                            ),
+                            Text(
+                              "10 Years",
+                              style: AppStyle.patientCountTextStyle,
+                            ),
+                            Text(
+                              "Experiences",
+                              style: AppStyle.patientTitleTextStyle,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: AppColors.whiteColor,
+                                  shape: BoxShape.circle,
+                                  border:
+                                      Border.all(color: AppColors.borderColor)),
+                              padding: EdgeInsets.all(AppDimens.height15),
+                              child: Image.asset(
+                                AppImage.rateImage,
+                                height: AppDimens.height30,
+                                width: AppDimens.height30,
+                              ),
+                            ),
+                            Text(
+                              "4.0",
+                              style: AppStyle.patientCountTextStyle,
+                            ),
+                            Text(
+                              "Rating",
+                              style: AppStyle.patientTitleTextStyle,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: AppDimens.height20,
+                    ),
                     Text(
                       "Description",
                       style: AppStyle.signInTextStyle.copyWith(
@@ -351,6 +439,7 @@ class HospitalDetailsView extends StatelessWidget {
                           itemCount: modal.vendorList!.length,
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
+                          reverse: true,
                           physics: const ClampingScrollPhysics(),
                           itemBuilder: (context, index) {
                             var data = modal.vendorList![index];

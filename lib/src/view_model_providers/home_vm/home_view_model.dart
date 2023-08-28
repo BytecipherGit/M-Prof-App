@@ -1,11 +1,18 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:m_proof/src/core_utils/flush_bar_message.dart';
+import 'package:m_proof/src/network/models/response/dashboard/dashboard_response.dart';
 import 'package:m_proof/src/network/models/response/dummy/category_list.dart';
 
 import '../../core_utils/export_dependency.dart';
+import '../../network/api_response/api_response.dart';
 import '../../network/models/response/dummy/barber_list.dart';
 import '../../network/models/response/dummy/hospital_list.dart';
 import '../../network/models/response/dummy/review_list.dart';
 import '../../network/models/response/dummy/specialisations_list.dart';
 import '../../network/models/response/dummy/vendor_list_response.dart';
+import '../../repositories/home_repository.dart';
 
 class HomeProviderVm extends ChangeNotifier {
   List<CategoryList>? category = [
@@ -27,7 +34,7 @@ class HomeProviderVm extends ChangeNotifier {
         closeTime: "21:00",
         isFav: 0,
         rating: 4.9,
-        type: "Orthopaedic ",
+        type: "Orthopaedic",
         status: "OPEN NOW"),
     VendorListResponse(
         name: "Christian Strogies",
@@ -47,7 +54,27 @@ class HomeProviderVm extends ChangeNotifier {
         closeTime: "14:00",
         isFav: 0,
         rating: 4.3,
-        type: "Doctor of Medicine ",
+        type: "Doctor of Medicine",
+        status: "CLOSED"),
+    VendorListResponse(
+        name: "Dr. Nathan Reinhardt",
+        image: AppImage.dr4Image,
+        id: 3,
+        startTime: "09:00",
+        closeTime: "14:00",
+        isFav: 0,
+        rating: 4.0,
+        type: "Master of Surgery",
+        status: "CLOSED"),
+    VendorListResponse(
+        name: "Dr. Letizia Marl",
+        image: AppImage.dr5Image,
+        id: 3,
+        startTime: "09:00",
+        closeTime: "14:00",
+        isFav: 0,
+        rating: 3.5,
+        type: "Doctor of Medicine",
         status: "CLOSED"),
   ];
 
@@ -194,6 +221,121 @@ class HomeProviderVm extends ChangeNotifier {
     "Ophthalmology",
     "Anaesthesia"
   ];
+
+  List<VendorListResponse>? musicianList = [
+    VendorListResponse(
+        name: "Nathan Reinhardt",
+        image: AppImage.sing1Image,
+        id: 1,
+        startTime: "09:00",
+        closeTime: "21:00",
+        isFav: 0,
+        rating: 4.9,
+        type: "Guitarist",
+        status: "OPEN NOW"),
+    VendorListResponse(
+        name: "Letizia Marl",
+        image: AppImage.sing2Image,
+        id: 2,
+        startTime: "09:00",
+        closeTime: "21:00",
+        isFav: 1,
+        rating: 3.9,
+        type: "Drummer",
+        status: "OPEN NOW"),
+    VendorListResponse(
+        name: "Leonhard Jander",
+        image: AppImage.sing3Image,
+        id: 3,
+        startTime: "09:00",
+        closeTime: "14:00",
+        isFav: 0,
+        rating: 4.3,
+        type: "Singer",
+        status: "CLOSED"),
+  ];
+  List<String> musicianSpecialisationsList = [
+    "Guitarist",
+    "Drummer",
+    "Singer",
+    "Voice-over Artist",
+    "Tabla",
+    "Classic Music"
+  ];
+
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Morning';
+    }
+    if (hour < 17) {
+      return 'Afternoon';
+    }
+    return 'Evening';
+  }
+
+  String? currentAddress;
+  Position? _currentPosition;
+
+  Future<bool> _handleLocationPermission(BuildContext context) async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      FlushBarMessage.flushBarTopErrorMessage(
+          message: "Location services are disabled. Please enable the services",
+          context: context);
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        FlushBarMessage.flushBarTopErrorMessage(
+            message: "Location permissions are denied", context: context);
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      FlushBarMessage.flushBarTopErrorMessage(
+          message:
+              "Location permissions are permanently denied, we cannot request permissions.",
+          context: context);
+      return false;
+    }
+    return true;
+  }
+
+  Future<void> getCurrentPosition(BuildContext context) async {
+    final hasPermission = await _handleLocationPermission(context);
+
+    if (!hasPermission) return;
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      _currentPosition = position;
+      _getAddressFromLatLng(_currentPosition!);
+      notifyListeners();
+    }).catchError((e) {
+      debugPrint(e);
+    });
+  }
+
+  Future<void> _getAddressFromLatLng(Position position) async {
+    await placemarkFromCoordinates(
+            _currentPosition!.latitude, _currentPosition!.longitude)
+        .then((List<Placemark> placemarks) {
+      Placemark place = placemarks[0];
+      var currentAddress2 =
+          '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+      currentAddress = ' ${place.locality}';
+      AppLogger.logger.d("currentAddress2 $currentAddress2");
+      AppLogger.logger.d("currentAddress $currentAddress");
+    }).catchError((e) {
+      debugPrint(e);
+    });
+  }
+
   String timeAgo(DateTime d) {
     Duration diff = DateTime.now().difference(d);
     if (diff.inDays > 365) {
@@ -215,5 +357,54 @@ class HomeProviderVm extends ChangeNotifier {
       return "${diff.inMinutes} ${diff.inMinutes == 1 ? "minute" : "minutes"} ago";
     }
     return "just now";
+  }
+
+  ApiResponse<DashBoardResponse> dashBoardList = ApiResponse.loading();
+  List<Category> categoryList = [];
+  List<Doctor> doctor = [];
+  List<Barber> barbers = [];
+  List<Barber> gymTrainer = [];
+  List<Barber> yogaInstructor = [];
+  setDashboardData(ApiResponse<DashBoardResponse> response) {
+    dashBoardList = response;
+    AppLogger.logger.d("getUserJobListError: $dashBoardList");
+    notifyListeners();
+  }
+
+  Future<void> fetchDashBoardApi() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult != ConnectivityResult.none) {
+      setDashboardData(ApiResponse.loading());
+      // Call Function from the Repository Class
+      await HomeRepository.homeRepositoryInstance
+          .getDashBoardApi()
+          .then((value) {
+        if (value!.data != null) {
+          for (var element in value.data!.category!) {
+            categoryList.add(element);
+          }
+          for (var element in value.data!.doctor!) {
+            doctor.add(element);
+          }
+          for (var element in value.data!.barbers!) {
+            barbers.add(element);
+          }
+          for (var element in value.data!.gymTrainer!) {
+            gymTrainer.add(element);
+          }
+          for (var element in value.data!.yogaInstructor!) {
+            yogaInstructor.add(element);
+          }
+        }
+        AppLogger.logger.d("fetchDashBoardApi: ${value.data}");
+        setDashboardData(ApiResponse.completed(value));
+      }).onError((error, stackTrace) {
+        setDashboardData(ApiResponse.error(error.toString()));
+      });
+    } else {
+      setDashboardData(
+          ApiResponse.internet("No internet connection available"));
+    }
+    notifyListeners();
   }
 }

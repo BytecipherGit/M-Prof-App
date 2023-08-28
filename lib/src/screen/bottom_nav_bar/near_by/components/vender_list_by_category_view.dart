@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../../../core_utils/export_dependency.dart';
 import '../../../../view_model_providers/home_vm/home_view_model.dart';
 import '../../../../widget/wave_clip.dart';
-import '../../home/components/hosptial_details.dart';
+import '../../home/components/hospital_details.dart';
 
 class VendorListByCategoryView extends StatelessWidget {
   final String title;

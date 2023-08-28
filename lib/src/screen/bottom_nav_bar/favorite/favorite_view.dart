@@ -3,7 +3,6 @@ import 'package:m_proof/src/view_model_providers/favorite_vm/favorite_view_model
 import 'package:provider/provider.dart';
 
 import '../../../core_utils/export_dependency.dart';
-import '../../../widget/wave_clip.dart';
 
 class FavoriteView extends StatefulWidget {
   const FavoriteView({super.key});

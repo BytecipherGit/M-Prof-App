@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../core_utils/export_dependency.dart';
 import '../../../../widget/new_rounded_button.dart';
-import '../../../../widget/wave_clip.dart';
 import '../../near_by/near_by_view.dart';
 import 'components/our_specialist_view.dart';
 import 'components/review_list.dart';
@@ -42,7 +41,7 @@ class MusicDetailsView extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Colors.red,
                           image: DecorationImage(
-                              image: AssetImage(AppImage.hos1Image),
+                              image: AssetImage(AppImage.guitaristPlaysImage),
                               fit: BoxFit.fill),
                           borderRadius: BorderRadius.all(
                               Radius.circular(AppDimens.radius10))),
@@ -348,12 +347,12 @@ class MusicDetailsView extends StatelessWidget {
                       height: AppDimens.height150,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: modal.vendorList!.length,
+                          itemCount: modal.musicianList!.length,
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
                           physics: const ClampingScrollPhysics(),
                           itemBuilder: (context, index) {
-                            var data = modal.vendorList![index];
+                            var data = modal.musicianList![index];
                             return OurSpecialistView(vendor: data);
                           }),
                     ),
@@ -380,12 +379,12 @@ class MusicDetailsView extends StatelessWidget {
                     ),
                     ListView.builder(
                         scrollDirection: Axis.vertical,
-                        itemCount: modal.hospitalSpecialisationsList.length,
+                        itemCount: modal.musicianSpecialisationsList.length,
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         physics: const ClampingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          var data = modal.hospitalSpecialisationsList[index];
+                          var data = modal.musicianSpecialisationsList[index];
                           return Padding(
                             padding: EdgeInsets.symmetric(
                                 vertical: AppDimens.height5),

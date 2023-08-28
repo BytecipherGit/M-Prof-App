@@ -1,9 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import '../core_utils/strings.dart';
-import '../network/models/response/cams/cams_login_response.dart';
-import '../network/models/response/profile/update_profile_response.dart';
-import '../network/models/response/site_access/site_access_login_response.dart';
-import '../network/models/user_details.dart';
+import '../network/models/response/auth/user_response.dart';
 
 class PreferenceUtils {
   static String? userImage;
@@ -73,13 +70,8 @@ class PreferenceUtils {
     return userImage;
   }
 
-  static String? getUserToken() {
-    return PreferenceUtils.getString(Strings.suretekToken) ?? "";
-  }
-
-  // CAMS Details
-  static String? getCAMSUserToken() {
-    return PreferenceUtils.getString(Strings.camsToken) ?? "";
+  static String? getUserAccessToken() {
+    return PreferenceUtils.getString(Strings.accessToken) ?? "";
   }
 
   static String? getCAMSAppUrl() {
@@ -108,10 +100,6 @@ class PreferenceUtils {
 
   static String? getCAMSAssetNo() {
     return PreferenceUtils.getString(Strings.assetNo) ?? "";
-  }
-
-  static String? getCompanyName() {
-    return PreferenceUtils.getString(Strings.companyName) ?? "";
   }
 
   static String? getJobAssetName() {
@@ -164,108 +152,83 @@ class PreferenceUtils {
     return PreferenceUtils.getString(Strings.siteAccessAccessEndDateTime) ?? "";
   }
 
-  static String? getUserFirstName() {
-    return PreferenceUtils.getString(Strings.fullName) ?? "";
-  }
-
-  static String? getUserLastName() {
-    return PreferenceUtils.getString(Strings.lastName) ?? "";
+  static String? getUserName() {
+    return PreferenceUtils.getString(Strings.name) ?? "";
   }
 
   static String? getUserEmail() {
     return PreferenceUtils.getString(Strings.email) ?? "";
   }
 
-  static String? getAdminSiteBureauId() {
-    return PreferenceUtils.getString(Strings.adminSiteBureauId) ?? "";
+  static String? getUserPhone() {
+    return PreferenceUtils.getString(Strings.phoneNumber) ?? "";
   }
 
-  static String? getAdminSiteAppUrl() {
-    return PreferenceUtils.getString(Strings.adminSiteAppUrl) ?? "";
+  static String? getCountryCode() {
+    return PreferenceUtils.getString(Strings.countryCode) ?? "";
   }
 
-  // static Future setLoginResponse(LoginResponse loginResponse) async {
-  //   await PreferenceUtils.setString(
-  //       Strings.fullName, loginResponse.data!.first.fullName ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.lastName, loginResponse.data!.first.lastName ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.email, loginResponse.data!.first.email ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.phone, loginResponse.data!.first.phone ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.address, loginResponse.data!.first.address ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.address2, loginResponse.data!.first.address2 ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.city, loginResponse.data!.first.city ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.state, loginResponse.data!.first.state ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.postcode, loginResponse.data!.first.postcode ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.companyName, loginResponse.data!.first.companyName ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.suretekToken, loginResponse.data!.first.suretekToken ?? "");
+  static Future setUserResponse(UserResponse userResponse) async {
+    await PreferenceUtils.setString(
+        Strings.name, userResponse.data!.name ?? "");
+    await PreferenceUtils.setString(
+        Strings.email, userResponse.data!.email ?? "");
+    await PreferenceUtils.setString(
+        Strings.phoneNumber, userResponse.data!.phoneNumber ?? "");
+    await PreferenceUtils.setString(
+        Strings.category, userResponse.data!.category ?? "");
+    await PreferenceUtils.setString(
+        Strings.address, userResponse.data!.address ?? "");
+    await PreferenceUtils.setString(Strings.lat, userResponse.data!.lat ?? "");
+    await PreferenceUtils.setString(Strings.lng, userResponse.data!.lng ?? "");
+    await PreferenceUtils.setString(
+        Strings.countryCode, userResponse.data!.countryCode ?? "");
+    await PreferenceUtils.setString(
+        Strings.accessToken, userResponse.accessToken!.accessToken ?? "");
+  }
+
+  static Future setUpdateProfileResponse(UserResponse userResponse) async {
+    await PreferenceUtils.setString(
+        Strings.name, userResponse.data!.name ?? "");
+    await PreferenceUtils.setString(
+        Strings.email, userResponse.data!.email ?? "");
+    await PreferenceUtils.setString(
+        Strings.phoneNumber, userResponse.data!.phoneNumber ?? "");
+    await PreferenceUtils.setString(
+        Strings.category, userResponse.data!.category ?? "");
+    await PreferenceUtils.setString(
+        Strings.address, userResponse.data!.address ?? "");
+    await PreferenceUtils.setString(Strings.lat, userResponse.data!.lat ?? "");
+    await PreferenceUtils.setString(Strings.lng, userResponse.data!.lng ?? "");
+    await PreferenceUtils.setString(
+        Strings.countryCode, userResponse.data!.countryCode ?? "");
+  }
+
+  // static Future<UserProfileView> getUserProfile() async {
+  //   var name = PreferenceUtils.getString(Strings.name);
+  //   var email = PreferenceUtils.getString(Strings.email);
+  //   var phone = PreferenceUtils.getString(Strings.phoneNumber);
+  //   var address = PreferenceUtils.getString(Strings.address);
+  //   var lat = PreferenceUtils.getString(Strings.lat);
+  //   var city = PreferenceUtils.getString(Strings.city);
+  //   var state = PreferenceUtils.getString(Strings.state);
+  //   var postcode = PreferenceUtils.getString(Strings.postcode);
+  //   var companyName = PreferenceUtils.getString(Strings.companyName);
+  //   UserProfileView userDetails = UserProfileView(
+  //       firstName: name,
+  //       phone: phone,
+  //       email: email,
+  //       companyName: companyName,
+  //       address: address,
+  //       lat: lat,
+  //       city: city,
+  //       state: state,
+  //       postcode: postcode);
+  //   return userDetails;
   // }
-
-  static Future setUpdateProfileResponse(
-      UpdateProfileResponse loginResponse) async {
-    await PreferenceUtils.setString(
-        Strings.fullName, loginResponse.data!.first.firstName ?? "");
-    await PreferenceUtils.setString(
-        Strings.lastName, loginResponse.data!.first.lastName ?? "");
-    await PreferenceUtils.setString(
-        Strings.email, loginResponse.data!.first.email ?? "");
-    await PreferenceUtils.setString(
-        Strings.phone, loginResponse.data!.first.phone ?? "");
-    await PreferenceUtils.setString(
-        Strings.address, loginResponse.data!.first.address ?? "");
-    await PreferenceUtils.setString(
-        Strings.address2, loginResponse.data!.first.address2 ?? "");
-    await PreferenceUtils.setString(
-        Strings.city, loginResponse.data!.first.city ?? "");
-    await PreferenceUtils.setString(
-        Strings.state, loginResponse.data!.first.state ?? "");
-    await PreferenceUtils.setString(
-        Strings.postcode, loginResponse.data!.first.postcode ?? "");
-    await PreferenceUtils.setString(
-        Strings.companyName, loginResponse.data!.first.companyName ?? "");
-  }
-
-  static Future<UserProfileView> getUserProfile() async {
-    var firstName = PreferenceUtils.getString(Strings.fullName);
-    var lastName = PreferenceUtils.getString(Strings.lastName);
-    var email = PreferenceUtils.getString(Strings.email);
-    var phone = PreferenceUtils.getString(Strings.phone);
-    var address = PreferenceUtils.getString(Strings.address);
-    var address2 = PreferenceUtils.getString(Strings.address2);
-    var city = PreferenceUtils.getString(Strings.city);
-    var state = PreferenceUtils.getString(Strings.state);
-    var postcode = PreferenceUtils.getString(Strings.postcode);
-    var companyName = PreferenceUtils.getString(Strings.companyName);
-    UserProfileView userDetails = UserProfileView(
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        email: email,
-        companyName: companyName,
-        address: address,
-        address2: address2,
-        city: city,
-        state: state,
-        postcode: postcode);
-    return userDetails;
-  }
 
   static clearPreferences() {
     _prefsInstance?.clear();
-  }
-
-// set CAMS
-  static Future setCAMSToken(List<CamsLogin>? data) async {
-    await PreferenceUtils.setString(
-        Strings.camsToken, data!.first.camsToken ?? "");
   }
 
   static Future setCAMSAppUrl(String apiUrl) async {
@@ -298,12 +261,6 @@ class PreferenceUtils {
 
   static Future setJobAssetName(String apiUrl) async {
     await PreferenceUtils.setString(Strings.jobAssetName, apiUrl);
-  }
-
-  // set Site Access
-  static Future setSiteAccessToken(List<SiteAccessLogin>? data) async {
-    await PreferenceUtils.setString(
-        Strings.camsToken, data!.first.camsToken ?? "");
   }
 
   static Future setSiteAccessAppUrl(String apiUrl) async {

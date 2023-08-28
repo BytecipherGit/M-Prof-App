@@ -1,7 +1,10 @@
 import 'package:m_proof/src/helpers/routes/route_name.dart';
 
+import '../../network/models/request/auth/login_request.dart';
+import '../../network/models/request/auth/signup_request.dart';
 import '../../screen/bottom_nav_bar/bottom_nav_bar.dart';
 import '../../screen/bottom_nav_bar/home/barber/barber_details_view.dart';
+import '../../screen/bottom_nav_bar/home/barber/menu/barber_menu_list_view.dart';
 import '../../screen/bottom_nav_bar/home/hospital/hospital_details_view.dart';
 import '../../screen/bottom_nav_bar/home/music/music_details_view.dart';
 import '../../screen/bottom_nav_bar/near_by/components/vender_list_by_category_view.dart';
@@ -25,17 +28,25 @@ class AppRoute {
       case RouteName.loginScreen:
         return MaterialPageRoute(builder: (context) => const LoginView());
       case RouteName.otpScreen:
-        return MaterialPageRoute(builder: (context) => const OTPView());
+        LoginRequest loginRequest = settings.arguments as LoginRequest;
+        return MaterialPageRoute(
+            builder: (context) => OTPView(loginRequest: loginRequest));
       case RouteName.mpinScreen:
         return MaterialPageRoute(builder: (context) => const MPinView());
       case RouteName.signUpScreen:
         return MaterialPageRoute(builder: (context) => const SignUpView());
       case RouteName.otpAfterSignUpScreen:
+        SignUpRequest signUpRequest = settings.arguments as SignUpRequest;
+
         return MaterialPageRoute(
-            builder: (context) => const OTPAfterSignUpView());
+            builder: (context) =>
+                OTPAfterSignUpView(signUpRequest: signUpRequest));
       case RouteName.mpinAfterSignUpScreen:
+        SignUpRequest signUpRequest = settings.arguments as SignUpRequest;
+
         return MaterialPageRoute(
-            builder: (context) => const MpinAfterSignUpView());
+            builder: (context) =>
+                MpinAfterSignUpView(signUpRequest: signUpRequest));
       case RouteName.locationPermissionScreen:
         return MaterialPageRoute(
             builder: (context) => const LocationPermissionView());
@@ -53,11 +64,17 @@ class AppRoute {
                 ));
 
       case RouteName.barberDetailsScreen:
-        return MaterialPageRoute( builder: (context) => const BarberDetailsView());
+        return MaterialPageRoute(
+            builder: (context) => const BarberDetailsView());
+      case RouteName.barberMenuListScreen:
+        return MaterialPageRoute(
+            builder: (context) => const BarberMenuListView());
       case RouteName.hospitalDetailsScreen:
-        return MaterialPageRoute( builder: (context) => const HospitalDetailsView());
+        return MaterialPageRoute(
+            builder: (context) => const HospitalDetailsView());
       case RouteName.musicDetailsScreen:
-        return MaterialPageRoute( builder: (context) => const MusicDetailsView());
+        return MaterialPageRoute(
+            builder: (context) => const MusicDetailsView());
       default:
         return MaterialPageRoute(builder: (context) => const Splash());
     }

@@ -4,13 +4,15 @@ class NewRoundedButton extends StatelessWidget {
   final String text;
   final Color color;
   final Color textColor;
+  final Color? borderColor;
   final VoidCallback? onPressedFunction;
   const NewRoundedButton(
       {Key? key,
       required this.color,
       required this.textColor,
       required this.text,
-      required this.onPressedFunction})
+      required this.onPressedFunction,
+      this.borderColor})
       : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class NewRoundedButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(AppDimens.radius10),
-        // border: Border.all(color: color),
+        border: Border.all(color: borderColor != null ? borderColor! : color),
       ),
       child: MaterialButton(
         onPressed: onPressedFunction,
@@ -31,7 +33,7 @@ class NewRoundedButton extends StatelessWidget {
             Text(
               text,
               style: AppStyle.appBarTitleTextStyle.copyWith(
-                color: AppColors.whiteColor,
+                color: textColor,
                 fontSize: AppDimens.fontSize16,
                 fontWeight: FontWeight.w600,
               ),

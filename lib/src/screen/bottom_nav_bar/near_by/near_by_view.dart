@@ -1,7 +1,6 @@
 import 'package:m_proof/src/helpers/routes/route_name.dart';
 
 import '../../../core_utils/export_dependency.dart';
-import '../../../widget/wave_clip.dart';
 
 class NearByView extends StatefulWidget {
   const NearByView({super.key});

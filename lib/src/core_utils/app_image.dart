@@ -16,6 +16,8 @@ class AppImage {
   static String dr1Image = "assets/images/dr1.png";
   static String dr2Image = "assets/images/dr2.png";
   static String dr3Image = "assets/images/dr3.png";
+  static String dr4Image = "assets/images/dr4.png";
+  static String dr5Image = "assets/images/dr5.png";
   static String bar1Image = "assets/images/bar1.png";
   static String bar2Image = "assets/images/bar2.png";
   static String bar3Image = "assets/images/bar3.png";
@@ -29,6 +31,13 @@ class AppImage {
   static String sp4Image = "assets/images/sp4.png";
   static String dummyUserImage = "assets/images/dummy_user.jpg";
   static String mapImage = "assets/images/map.png";
+  static String hospitalisationImage = "assets/images/hospitalisation.png";
+  static String qualityImage = "assets/images/quality.png";
+  static String rateImage = "assets/images/rate.png";
+  static String guitaristPlaysImage = "assets/images/guitarist-plays.png";
+  static String sing1Image = "assets/images/sing1.png";
+  static String sing2Image = "assets/images/sing2.png";
+  static String sing3Image = "assets/images/sing3.png";
 
 
 

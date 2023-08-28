@@ -11,18 +11,15 @@ class Strings {
   static const String signUpDeviceId = "signUpDeviceId";
 
   //Login
-  static const String fullName = "fullName";
-  static const String lastName = "lastName";
+  static const String name = "name";
   static const String email = "email";
-  static const String phone = "phone";
+  static const String phoneNumber = "phoneNumber";
   static const String address = "address";
-  static const String address2 = "address2";
-  static const String city = "city";
-  static const String state = "state";
-  static const String postcode = "postcode";
-  static const String companyName = "companyName";
-  static const String camsToken = "camsToken";
-  static const String suretekToken = "suretekToken";
+  static const String category = "category";
+  static const String lat = "lat";
+  static const String lng = "lng";
+  static const String countryCode = "countryCode";
+  static const String accessToken = "accessToken";
 
   // Edit Profile
   static const String editProfileUserId = "editProfileUserId";
@@ -60,16 +57,14 @@ class Strings {
   static const String setSiteAccessAssetName = "setSiteAccessAssetName";
   static const String siteAccessBaseAssetID = "siteAccessAssetID";
   static const String siteAccessAdminUserEmail = "siteAccessAdminUserEmail";
-  static const String siteAccessAccessEndDateTime = "siteAccessAccessEndDateTime";
-  static const String siteAccessAccessStartDateTime = "siteAccessAccessStartDateTime";
+  static const String siteAccessAccessEndDateTime =
+      "siteAccessAccessEndDateTime";
+  static const String siteAccessAccessStartDateTime =
+      "siteAccessAccessStartDateTime";
   static const String siteAccessId = "siteAccessId";
   static const String siteAccessCamsName = "siteAccessCamsName";
-
-
 
   //Admin
   static const String adminSiteBureauId = "adminSiteBureauId";
   static const String adminSiteAppUrl = "adminSiteAppUrl";
-
-
 }

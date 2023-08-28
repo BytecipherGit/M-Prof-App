@@ -26,7 +26,7 @@ class FavoriteDetailsView extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: AppDimens.height110,
+                  height: AppDimens.height100,
                   width: double.maxFinite,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(

@@ -1,6 +1,8 @@
 import 'package:m_proof/src/helpers/routes/route_name.dart';
+import 'package:m_proof/src/local_cache/preference_utils.dart';
 
 import '../../../core_utils/export_dependency.dart';
+import '../../../widget/dialogues.dart';
 import '../../../widget/wave_clip.dart';
 import '../near_by/near_by_view.dart';
 
@@ -42,64 +44,75 @@ class _SettingViewState extends State<SettingView> {
                   ),
                   Container(
                     margin: EdgeInsets.all(AppDimens.width5),
-                    padding: EdgeInsets.only(
-                        left: AppDimens.width100,
-                        top: AppDimens.height10,
-                        bottom: AppDimens.width20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppDimens.radius10),
                       color: Colors.white,
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ClipOval(
-                              child: Image.asset(
-                                AppImage.userImage,
-                                fit: BoxFit.fill,
-                                height: AppDimens.height100,
-                                width: AppDimens.height100,
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: AppDimens.width100,
+                              top: AppDimens.height10,
+                              bottom: AppDimens.height8),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ClipOval(
+                                child: Image.asset(
+                                  AppImage.userImage,
+                                  fit: BoxFit.fill,
+                                  height: AppDimens.height100,
+                                  width: AppDimens.height100,
+                                ),
                               ),
-                            ),
-                            RawMaterialButton(
-                              onPressed: () {},
-                              elevation: 0.0,
-                              fillColor: const Color(0XFFF0F0F0),
-                              padding: EdgeInsets.all(AppDimens.height10),
-                              shape: const CircleBorder(),
-                              child: Image.asset(
-                                AppImage.editIcon,
-                                height: AppDimens.height15,
-                                width: AppDimens.height15,
+                              RawMaterialButton(
+                                onPressed: () {},
+                                elevation: 0.0,
+                                fillColor: const Color(0XFFF0F0F0),
+                                padding: EdgeInsets.all(AppDimens.height10),
+                                shape: const CircleBorder(),
+                                child: Image.asset(
+                                  AppImage.editIcon,
+                                  height: AppDimens.height15,
+                                  width: AppDimens.height15,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: AppDimens.height110,
-                          child: Text(
-                            "Full Name",
-                            style: AppStyle.userTextStyle,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                            ],
                           ),
                         ),
+                        SizedBox(
+                          height: AppDimens.height5,
+                        ),
                         Text(
-                          "test@mail.com",
+                          PreferenceUtils.getUserName()!.toUpperCase(),
+                          style: AppStyle.userTextStyle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(
+                          height: AppDimens.height5,
+                        ),
+                        Text(
+                          "${PreferenceUtils.getUserEmail()}",
                           style: AppStyle.userEmailTextStyle,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
+                        SizedBox(
+                          height: AppDimens.height5,
+                        ),
                         Text(
-                          "+91 9999 999999",
+                          "${PreferenceUtils.getCountryCode()} ${PreferenceUtils.getUserPhone()}",
                           style: AppStyle.userEmailTextStyle,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(
+                          height: AppDimens.height10,
                         ),
                       ],
                     ),
@@ -135,7 +148,11 @@ class _SettingViewState extends State<SettingView> {
                   ),
                   NearByListTile(
                       image: AppImage.settingMenuIcon, title: "Settings"),
-                  NearByListTile(image: AppImage.logoutIcon, title: "Log out"),
+                  NearByListTile(
+                    image: AppImage.logoutIcon,
+                    title: "Log out",
+                    onTap: () => LogOutDialogue.showDialogue(context),
+                  ),
                 ],
               )),
           CustomPaint(

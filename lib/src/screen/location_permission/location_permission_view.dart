@@ -2,7 +2,6 @@ import 'package:m_proof/src/widget/custom_rounded_button.dart';
 
 import '../../core_utils/export_dependency.dart';
 import '../../helpers/routes/route_name.dart';
-import '../../widget/wave_clip.dart';
 
 class LocationPermissionView extends StatefulWidget {
   const LocationPermissionView({super.key});

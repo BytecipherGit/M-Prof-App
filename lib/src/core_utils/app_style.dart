@@ -185,7 +185,6 @@ class AppStyle {
     fontWeight: FontWeight.w400,
     fontFamily: 'Gilroy-Medium',
   );
-
   static TextStyle reviewerNameTextStyle = TextStyle(
     color: AppColors.reviewerNameTextColor,
     fontSize: AppDimens.fontSize16,
@@ -193,6 +192,18 @@ class AppStyle {
     fontFamily: 'Gilroy-SemiBold',
   );
   static TextStyle hospitalSpecializationTitleTextStyle = TextStyle(
+    color: AppColors.skipTextColor,
+    fontSize: AppDimens.fontSize16,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Gilroy-Medium',
+  );
+  static TextStyle patientCountTextStyle = TextStyle(
+    color: AppColors.hiddenMobileTextColor,
+    fontSize: AppDimens.fontSize20,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Gilroy-SemiBold',
+  );
+  static TextStyle patientTitleTextStyle = TextStyle(
     color: AppColors.skipTextColor,
     fontSize: AppDimens.fontSize16,
     fontWeight: FontWeight.w400,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:m_proof/src/local_cache/preference_utils.dart';
 import 'package:m_proof/src/view_model_providers/auth/auth_provider.dart';
 import 'package:m_proof/src/view_model_providers/booking_vm/booking_view_model.dart';
 import 'package:m_proof/src/view_model_providers/bottom_vm/bottom_nav_view_model.dart';
@@ -10,19 +12,24 @@ import 'package:provider/provider.dart';
 import 'src/helpers/routes/app_routes.dart';
 import 'src/helpers/routes/route_name.dart';
 
-void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => BottomProviderVm()),
-        ChangeNotifierProvider(create: (_) => HomeProviderVm()),
-        ChangeNotifierProvider(create: (_) => FavoriteProviderVm()),
-        ChangeNotifierProvider(create: (_) => BookingProviderVm()),
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PreferenceUtils.init();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) {
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => BottomProviderVm()),
+          ChangeNotifierProvider(create: (_) => HomeProviderVm()),
+          ChangeNotifierProvider(create: (_) => FavoriteProviderVm()),
+          ChangeNotifierProvider(create: (_) => BookingProviderVm()),
+          ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ],
+        child: const MyApp(),
+      ),
+    );
+  });
 }
 
 class MyApp extends StatelessWidget {

@@ -2,9 +2,26 @@ import 'package:provider/provider.dart';
 
 import '../../core_utils/export_dependency.dart';
 import '../../view_model_providers/bottom_vm/bottom_nav_view_model.dart';
+import '../../view_model_providers/home_vm/home_view_model.dart';
 
-class BottomNavBar extends StatelessWidget {
+class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
+
+  @override
+  State<BottomNavBar> createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  late HomeProviderVm homeProviderVm;
+
+  @override
+  void initState() {
+    homeProviderVm = Provider.of<HomeProviderVm>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      homeProviderVm.getCurrentPosition(context);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

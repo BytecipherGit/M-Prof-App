@@ -53,6 +53,9 @@ dependencies:
   badges: ^2.0.2
   cached_network_image: ^3.2.3
   flutter_rating_bar: ^4.0.1
+  email_validator: ^2.1.17
+  geolocator: ^10.0.0
+  geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_test:

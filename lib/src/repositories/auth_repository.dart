@@ -41,11 +41,11 @@ class AuthRepository {
       {required dynamic data, required String url}) async {
     AppLogger.logger.d("updateProfileApi url : $url");
 
-    String suretekToken = PreferenceUtils.getUserToken() ?? "";
+    String accessToken = PreferenceUtils.getUserAccessToken() ?? "";
     try {
       final myHeaders = {
         "Content-Type": "application/json",
-        "Authorization": suretekToken
+        "Authorization": accessToken
       };
       dynamic response = await NetworkApiService.apiServicesInstance
           .callPostApiResponse(url: url, body: data, myHeaders: myHeaders);
@@ -68,7 +68,7 @@ class AuthRepository {
     }
   }
 
-  Future<dynamic> authResetPasswordApi(
+  Future<dynamic> setMPinAfterSignUp(
       {required dynamic data, required String url}) async {
     AppLogger.logger.d("authResetPasswordApi url : $url");
 
@@ -83,7 +83,7 @@ class AuthRepository {
 
   Future<dynamic> authChangePasswordApi(
       {required dynamic data, required String url}) async {
-    String suretekToken = PreferenceUtils.getUserToken() ?? "";
+    String suretekToken = PreferenceUtils.getUserAccessToken() ?? "";
     AppLogger.logger.d("authChangePasswordApi url : $url");
 
     try {
@@ -100,14 +100,14 @@ class AuthRepository {
   }
 
   Future<dynamic> authDeleteProfileApi({required String url}) async {
-    String suretekToken = PreferenceUtils.getUserToken() ?? "";
+    String accessToken = PreferenceUtils.getUserAccessToken() ?? "";
     String email = PreferenceUtils.getUserEmail() ?? "";
     AppLogger.logger.d("authDeleteProfileApi url : $url");
 
     try {
       final headers = {
         "Content-Type": "application/json",
-        "Authorization": suretekToken
+        "Authorization": accessToken
       };
       AppLogger.logger.d("authDeleteProfileApi headers: $headers");
       AppLogger.logger.d("authDeleteProfileApi url: $url");

@@ -165,6 +165,7 @@ class _LoginViewState extends State<LoginView> {
                             hintText: "Enter Phone Number",
                             controller: phoneController,
                             keyboardType: TextInputType.number,
+                            maxLength: 10,
                             onChanged: (CountryCode? code) {
                               modal.setCountryCode(code!.dialCode ?? "+91");
                               AppLogger.logger.d(code.name);
@@ -191,22 +192,17 @@ class _LoginViewState extends State<LoginView> {
                                         phoneController.text.trim();
                                     if (phoneNumber.isEmpty &&
                                         modal.countryCode.isEmpty) {
-                                      FlushBarMessage
-                                          .flushBarTopErrorMessage(
-                                              message:
-                                                  'Please enter credential',
-                                              context: context);
+                                      FlushBarMessage.flushBarTopErrorMessage(
+                                          message: 'Please enter credential',
+                                          context: context);
                                     } else if (modal.countryCode.isEmpty) {
-                                      FlushBarMessage
-                                          .flushBarTopErrorMessage(
-                                              message: 'Please select country',
-                                              context: context);
+                                      FlushBarMessage.flushBarTopErrorMessage(
+                                          message: 'Please select country',
+                                          context: context);
                                     } else if (phoneNumber.isEmpty) {
-                                      FlushBarMessage
-                                          .flushBarTopErrorMessage(
-                                              message:
-                                                  'Please enter phone number',
-                                              context: context);
+                                      FlushBarMessage.flushBarTopErrorMessage(
+                                          message: 'Please enter phone number',
+                                          context: context);
                                     } else {
                                       LoginRequest request = LoginRequest(
                                           countryCode: modal.countryCode,

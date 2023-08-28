@@ -1,3 +1,5 @@
+import 'package:m_proof/src/helpers/routes/route_name.dart';
+
 import '../../../../core_utils/export_dependency.dart';
 import '../../../../network/models/response/dummy/category_list.dart';
 
@@ -12,7 +14,11 @@ class CategoryDetailsView extends StatelessWidget {
       child: Column(
         children: [
           RawMaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              if (category.id == 3) {
+                Navigator.pushNamed(context, RouteName.musicDetailsScreen);
+              }
+            },
             elevation: 0.0,
             fillColor: const Color(0XFF292929),
             padding: EdgeInsets.all(AppDimens.height15),

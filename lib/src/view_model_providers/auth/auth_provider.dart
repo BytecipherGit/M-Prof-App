@@ -1,19 +1,20 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:m_proof/src/network/models/request/auth/set_mpin_request.dart';
 import '../../core_utils/export_dependency.dart';
 import '../../core_utils/flush_bar_message.dart';
 import '../../core_utils/toasts.dart';
 import '../../helpers/routes/route_name.dart';
 import '../../local_cache/preference_utils.dart';
 import '../../network/NetworkUrls/app_network_urls.dart';
-import '../../network/models/login_response.dart';
-import '../../network/models/register_response.dart';
+import '../../network/models/response/auth/login_response.dart';
+import '../../network/models/response/auth/register_response.dart';
 import '../../network/models/request/auth/change_password_request.dart';
 import '../../network/models/request/auth/forgot_password_request.dart';
 import '../../network/models/request/auth/login_request.dart';
-import '../../network/models/request/auth/reset_password_request.dart';
 import '../../network/models/request/auth/signup_request.dart';
 import '../../network/models/request/auth/update_profile_request.dart';
 import '../../network/models/request/auth/verify_otp_request.dart';
+import '../../network/models/response/auth/user_response.dart';
 import '../../network/models/response/profile/update_profile_response.dart';
 import '../../repositories/auth_repository.dart';
 
@@ -116,14 +117,17 @@ class AuthProvider with ChangeNotifier {
               message: loginResponse.message!, context: context);
           if (loginResponse.data!.isMobileVerify != 1) {
             Navigator.pushReplacementNamed(
-                context, RouteName.otpAfterSignUpScreen);
+                context, RouteName.otpAfterSignUpScreen,
+                arguments: data);
           } else if (loginResponse.data!.mpin == null) {
             Navigator.pushReplacementNamed(
-                context, RouteName.mpinAfterSignUpScreen);
+                context, RouteName.mpinAfterSignUpScreen,
+                arguments: data);
           } else {}
         } else {
           AppLogger.logger.d("success message: ${loginResponse.message}");
-          Navigator.pushReplacementNamed(context, RouteName.otpScreen);
+          Navigator.pushReplacementNamed(context, RouteName.otpScreen,
+              arguments: data);
           Toasts.getSuccessToast(text: loginResponse.message!);
           // PreferenceUtils.setLoginResponse(loginResponse).then((value) {
           //   Navigator.pushReplacementNamed(context, RouteName.otpScreen);
@@ -154,13 +158,13 @@ class AuthProvider with ChangeNotifier {
         final registerResponse = RegisterResponse.fromJson(value);
         AppLogger.logger.d("UIRegisterHit: $registerResponse");
 
-        if (registerResponse.status == 0) {
+        if (registerResponse.success == false) {
           FlushBarMessage.flushBarTopErrorMessage(
               message: registerResponse.message!, context: context);
         } else {
           Toasts.getSuccessToast(text: registerResponse.message);
-          Navigator.pushNamed(context, RouteName.otpScreenAfterSignup,
-              arguments: data.email);
+          Navigator.pushNamed(context, RouteName.otpAfterSignUpScreen,
+              arguments: data);
         }
         setLoading(isLoading: false);
       }).onError((error, stackTrace) {
@@ -188,13 +192,16 @@ class AuthProvider with ChangeNotifier {
         final registerResponse = RegisterResponse.fromJson(value);
         AppLogger.logger.d("UIVerifyOTPHit: $registerResponse");
         setLoading(isLoading: false);
-        if (registerResponse.status == 0) {
+        if (registerResponse.success == false) {
           FlushBarMessage.flushBarTopErrorMessage(
               message: registerResponse.message!, context: context);
         } else {
           Toasts.getSuccessToast(text: registerResponse.message!);
-          Navigator.pushNamedAndRemoveUntil(
-              context, RouteName.loginScreen, (route) => false);
+          Navigator.pushReplacementNamed(
+              context, RouteName.mpinAfterSignUpScreen,
+              arguments: SignUpRequest(
+                  phoneNumber: data.phoneNumber,
+                  countryCode: data.countryCode));
         }
       }).onError((error, stackTrace) {
         setLoading(isLoading: false);
@@ -221,7 +228,7 @@ class AuthProvider with ChangeNotifier {
         final registerResponse = RegisterResponse.fromJson(value);
         AppLogger.logger.d("UIForgetPasswordHit: $registerResponse");
         setLoading(isLoading: false);
-        if (registerResponse.status == 0) {
+        if (registerResponse.success == false) {
           FlushBarMessage.flushBarTopErrorMessage(
               message: registerResponse.message!, context: context);
         } else {
@@ -253,7 +260,7 @@ class AuthProvider with ChangeNotifier {
         final registerResponse = RegisterResponse.fromJson(value);
         AppLogger.logger.d("UIResendOtpHit: $registerResponse");
         setLoading(isLoading: false);
-        if (registerResponse.status == 0) {
+        if (registerResponse.success == false) {
           FlushBarMessage.flushBarTopErrorMessage(
               message: registerResponse.message!, context: context);
         } else {
@@ -272,8 +279,7 @@ class AuthProvider with ChangeNotifier {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult != ConnectivityResult.none) {
       setLoading(isLoading: true);
-      AppLogger.logger
-          .d("verifyOTPAfterForgotPasswordApi Request : ${data.toJson()}");
+      AppLogger.logger.d("verifyLoginOTPApi Request : ${data.toJson()}");
 
       // Call Function from the Repository Class
       await AuthRepository.authRepositoryInstance
@@ -282,18 +288,18 @@ class AuthProvider with ChangeNotifier {
               url: AppNetworkUrls.verifyLoginOTPApiEndPoint)
           .then((value) {
         AppLogger.logger.d("value: $value");
-        final registerResponse = RegisterResponse.fromJson(value);
-        AppLogger.logger
-            .d("UIVerifyOTPAfterForgotPasswordHit: $registerResponse");
+        final userResponse = UserResponse.fromJson(value);
+        AppLogger.logger.d("UIVerifyLoginOTPApiHit: $userResponse");
         setLoading(isLoading: false);
-        if (registerResponse.status == 0) {
+        if (userResponse.success == false) {
           FlushBarMessage.flushBarTopErrorMessage(
-              message: registerResponse.message!, context: context);
+              message: userResponse.message!, context: context);
         } else {
-          Toasts.getSuccessToast(text: registerResponse.message!);
-          Navigator.pushReplacementNamed(
-              context, RouteName.setNewPasswordScreen,
-              arguments: data);
+          PreferenceUtils.setUserResponse(userResponse).then((value) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, RouteName.bottomNavBar, (route) => false);
+            Toasts.getSuccessToast(text: userResponse.message!);
+          });
         }
       }).onError((error, stackTrace) {
         setLoading(isLoading: false);
@@ -303,24 +309,23 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> resetPasswordApi(
-      {required ResetPasswordRequest data,
-      required BuildContext context}) async {
+  Future<void> setMPinAfterSignUp(
+      {required SetMPinRequest data, required BuildContext context}) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult != ConnectivityResult.none) {
       setLoading(isLoading: true);
-      AppLogger.logger.d("resetPasswordApi Request : ${data.toJson()}");
+      AppLogger.logger.d("setMpinApi Request : ${data.toJson()}");
 
       // Call Function from the Repository Class
       await AuthRepository.authRepositoryInstance
-          .authResetPasswordApi(
-              data: data.toJson(), url: AppNetworkUrls.resetPasswordApiEndPoint)
+          .setMPinAfterSignUp(
+              data: data.toJson(), url: AppNetworkUrls.setMpinApiEndPoint)
           .then((value) {
         AppLogger.logger.d("value: $value");
         final registerResponse = RegisterResponse.fromJson(value);
-        AppLogger.logger.d("UIResetPasswordHit: $registerResponse");
+        AppLogger.logger.d("UISetMpinApiHit: $registerResponse");
         setLoading(isLoading: false);
-        if (registerResponse.status == 0) {
+        if (registerResponse.success == false) {
           FlushBarMessage.flushBarTopErrorMessage(
               message: registerResponse.message!, context: context);
         } else {
@@ -353,7 +358,7 @@ class AuthProvider with ChangeNotifier {
         final registerResponse = RegisterResponse.fromJson(value);
         AppLogger.logger.d("UIResetPasswordHit: $registerResponse");
         setLoading(isLoading: false);
-        if (registerResponse.status == 0) {
+        if (registerResponse.success == false) {
           FlushBarMessage.flushBarTopErrorMessage(
               message: registerResponse.message!, context: context);
         } else {
@@ -389,11 +394,11 @@ class AuthProvider with ChangeNotifier {
           FlushBarMessage.flushBarTopErrorMessage(
               message: updateProfileResponse.message!, context: context);
         } else {
-          PreferenceUtils.setUpdateProfileResponse(updateProfileResponse)
-              .then((value) {
-            Navigator.pop(context);
-            Toasts.getSuccessToast(text: updateProfileResponse.message!);
-          });
+          // PreferenceUtils.setUpdateProfileResponse(updateProfileResponse)
+          //     .then((value) {
+          //   Navigator.pop(context);
+          //   Toasts.getSuccessToast(text: updateProfileResponse.message!);
+          // });
         }
         setLoading(isLoading: false);
       }).onError((error, stackTrace) {
