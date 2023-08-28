@@ -117,7 +117,7 @@ class NetworkApiService extends BaseApiServices {
       } else {
         Toasts.getWarningToast(text: "No Internet Connection Available :(");
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       AppLogger.logger.d("onDeleteError: $e");
     } on Exception {
       AppLogger.logger.d("badHappenedError");
