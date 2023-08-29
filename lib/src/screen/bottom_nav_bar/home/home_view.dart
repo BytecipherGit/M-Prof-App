@@ -1,7 +1,9 @@
 import 'package:provider/provider.dart';
 
 import '../../../core_utils/export_dependency.dart';
+import '../../../network/api_response/api_response.dart';
 import '../../../view_model_providers/home_vm/home_view_model.dart';
+import '../../../widget/no_internet.dart';
 import 'components/barber_details_view.dart';
 import 'components/category_details_view.dart';
 import 'components/hospital_details.dart';
@@ -151,195 +153,247 @@ class _HomeViewState extends State<HomeView> {
           body: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: SafeArea(
-              child: Consumer<HomeProviderVm>(builder: (context, modal, _) {
-                return Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: AppDimens.height20,
-                          left: AppDimens.width10,
-                          right: AppDimens.width10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Category".toUpperCase(),
-                            style: AppStyle.categoryTextStyle,
-                          ),
-                          Text(
-                            "See All",
-                            style: AppStyle.seeAllTextStyle,
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: AppDimens.height20,
-                    ),
-                    SizedBox(
-                      height: AppDimens.height120,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: modal.category!.length,
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            var data = modal.category![index];
-                            return CategoryDetailsView(category: data);
-                          }),
-                    ),
-                    Stack(
+              child: Consumer<HomeProviderVm>(builder: (context, value, _) {
+                switch (value.dashBoardList.statusEnum) {
+                  case StatusEnum.loading:
+                    return SizedBox(
+                      height: AppDimens.height500,
+                      child: Center(
+                          child: CircularProgressIndicator(
+                        color: AppColors.primaryColor,
+                        strokeWidth: 3,
+                      )),
+                    );
+                  case StatusEnum.error:
+                    return Center(
+                      child: Text(value.dashBoardList.message.toString()),
+                    );
+                  case StatusEnum.internet:
+                    return const NoInternet();
+                  case StatusEnum.completed:
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          color: AppColors.bgColor,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: AppDimens.height20,
-                                horizontal: AppDimens.width10),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: AppDimens.height20,
+                              left: AppDimens.width10,
+                              right: AppDimens.width10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Category".toUpperCase(),
+                                style: AppStyle.categoryTextStyle,
+                              ),
+                              Text(
+                                "See All",
+                                style: AppStyle.seeAllTextStyle,
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: AppDimens.height20,
+                        ),
+                        SizedBox(
+                          height: AppDimens.height120,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: modal
+                                  .dashBoardList.data!.data!.category!.length,
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                var data = modal
+                                    .dashBoardList.data!.data!.category![index];
+                                return CategoryDetailsView(category: data);
+                              }),
+                        ),
+                        Stack(
+                          children: [
+                            Container(
+                              color: AppColors.bgColor,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: AppDimens.height20,
+                                    horizontal: AppDimens.width10),
+                                child: Column(
                                   children: [
-                                    Text(
-                                      "Doctors Near You".toUpperCase(),
-                                      style: AppStyle.categoryTextStyle
-                                          .copyWith(
-                                              color: const Color(0XFF09131E)),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Doctors Near You".toUpperCase(),
+                                          style: AppStyle.categoryTextStyle
+                                              .copyWith(
+                                                  color:
+                                                      const Color(0XFF09131E)),
+                                        ),
+                                        Text(
+                                          "See All",
+                                          style: AppStyle.seeAllTextStyle
+                                              .copyWith(
+                                                  color:
+                                                      const Color(0XFF686868)),
+                                        )
+                                      ],
                                     ),
-                                    Text(
-                                      "See All",
-                                      style: AppStyle.seeAllTextStyle.copyWith(
-                                          color: const Color(0XFF686868)),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: AppDimens.height15,
-                                ),
-                                SizedBox(
-                                  height: AppDimens.height175,
-                                  child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: modal.vendorList!.length,
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      physics: const ClampingScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        var data = modal.vendorList![index];
-                                        return VendorDetails(vendor: data);
-                                      }),
-                                ),
-                                SizedBox(
-                                  height: AppDimens.height20,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Top Barbershop".toUpperCase(),
-                                      style: AppStyle.categoryTextStyle
-                                          .copyWith(
-                                              color: const Color(0XFF09131E)),
-                                    ),
-                                    Text(
-                                      "See All",
-                                      style: AppStyle.seeAllTextStyle.copyWith(
-                                          color: const Color(0XFF686868)),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: AppDimens.height20,
-                                ),
-                                SizedBox(
-                                  child: GridView.builder(
-                                    itemCount: modal.barberList!.length > 4
-                                        ? 4
-                                        : modal.barberList!.length,
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                    padding: EdgeInsets.zero,
-                                    physics: const ScrollPhysics(),
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      childAspectRatio: (1 / 1.27),
-                                    ),
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      var data = modal.barberList![index];
-                                      if (index < 5) {
-                                        return BarberDetailsView(
-                                          barber: data,
-                                        );
-                                      } else {
-                                        return Container();
-                                      }
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: AppDimens.height20,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
                                     SizedBox(
-                                      width: AppDimens.width200,
-                                      child: Text(
-                                        "Hospital for Your Service"
-                                            .toUpperCase(),
-                                        style: AppStyle.categoryTextStyle
-                                            .copyWith(
-                                                color: const Color(0XFF09131E)),
+                                      height: AppDimens.height15,
+                                    ),
+                                    SizedBox(
+                                      height: AppDimens.height175,
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: modal.dashBoardList.data!
+                                              .data!.doctor!.length,
+                                          padding: EdgeInsets.zero,
+                                          shrinkWrap: true,
+                                          physics:
+                                              const ClampingScrollPhysics(),
+                                          itemBuilder: (context, index) {
+                                            var data = modal.dashBoardList.data!
+                                                .data!.doctor![index];
+                                            return VendorDetails(doctor: data);
+                                          }),
+                                    ),
+                                    SizedBox(
+                                      height: AppDimens.height20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Top Barbershop".toUpperCase(),
+                                          style: AppStyle.categoryTextStyle
+                                              .copyWith(
+                                                  color:
+                                                      const Color(0XFF09131E)),
+                                        ),
+                                        Text(
+                                          "See All",
+                                          style: AppStyle.seeAllTextStyle
+                                              .copyWith(
+                                                  color:
+                                                      const Color(0XFF686868)),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: AppDimens.height20,
+                                    ),
+                                    SizedBox(
+                                      child: GridView.builder(
+                                        itemCount: modal.dashBoardList.data!
+                                                    .data!.barbers!.length >
+                                                4
+                                            ? 4
+                                            : modal.dashBoardList.data!.data!
+                                                .barbers!.length,
+                                        scrollDirection: Axis.vertical,
+                                        shrinkWrap: true,
+                                        padding: EdgeInsets.zero,
+                                        physics: const ScrollPhysics(),
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          childAspectRatio: (1 / 1.17),
+                                        ),
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          var data = modal.dashBoardList.data!
+                                              .data!.barbers![index];
+                                          if (index < 5) {
+                                            return BarberDetailsView(
+                                              barber: data,
+                                            );
+                                          } else {
+                                            return Container();
+                                          }
+                                        },
                                       ),
                                     ),
-                                    Text(
-                                      "See All",
-                                      style: AppStyle.seeAllTextStyle.copyWith(
-                                          color: const Color(0XFF686868)),
-                                    )
+                                    SizedBox(
+                                      height: AppDimens.height20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: AppDimens.width200,
+                                          child: Text(
+                                            "Hospital for Your Service"
+                                                .toUpperCase(),
+                                            style: AppStyle.categoryTextStyle
+                                                .copyWith(
+                                                    color: const Color(
+                                                        0XFF09131E)),
+                                          ),
+                                        ),
+                                        Text(
+                                          "See All",
+                                          style: AppStyle.seeAllTextStyle
+                                              .copyWith(
+                                                  color:
+                                                      const Color(0XFF686868)),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: AppDimens.height20,
+                                    ),
+                                    ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        itemCount:
+                                            modal.hospitalList!.length > 4
+                                                ? 4
+                                                : modal.hospitalList!.length,
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        physics: const ClampingScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          var data = modal.hospitalList![index];
+                                          if (index < 5) {
+                                            return HospitalDetails(
+                                              hospital: data,
+                                            );
+                                          } else {
+                                            return Container();
+                                          }
+                                        }),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: AppDimens.height20,
-                                ),
-                                ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: modal.hospitalList!.length > 4
-                                        ? 4
-                                        : modal.hospitalList!.length,
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    physics: const ClampingScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      var data = modal.hospitalList![index];
-                                      if (index < 5) {
-                                        return HospitalDetails(
-                                          hospital: data,
-                                        );
-                                      } else {
-                                        return Container();
-                                      }
-                                    }),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                        CustomPaint(
-                          painter: AppBarPainter(),
-                          child: Container(height: 0),
-                        ),
+                            CustomPaint(
+                              painter: AppBarPainter(),
+                              child: Container(height: 0),
+                            ),
+                          ],
+                        )
                       ],
-                    )
-                  ],
-                );
+                    );
+                  case null:
+                    return Expanded(
+                        child: ListView(
+                      padding: EdgeInsets.only(top: AppDimens.height200),
+                      children: [
+                        Center(
+                            child: Text(
+                          "No Data found",
+                          style: AppStyle.appBarTitleTextStyle,
+                        )),
+                      ],
+                    ));
+                }
               }),
             ),
           ),

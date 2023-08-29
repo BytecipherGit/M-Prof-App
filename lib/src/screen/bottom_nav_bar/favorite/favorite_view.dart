@@ -3,6 +3,7 @@ import 'package:m_proof/src/view_model_providers/favorite_vm/favorite_view_model
 import 'package:provider/provider.dart';
 
 import '../../../core_utils/export_dependency.dart';
+import '../../../view_model_providers/home_vm/home_view_model.dart';
 
 class FavoriteView extends StatefulWidget {
   const FavoriteView({super.key});
@@ -12,6 +13,17 @@ class FavoriteView extends StatefulWidget {
 }
 
 class _FavoriteViewState extends State<FavoriteView> {
+  late HomeProviderVm homeProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    homeProvider = Provider.of<HomeProviderVm>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      homeProvider.fetchFavoritesApi();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

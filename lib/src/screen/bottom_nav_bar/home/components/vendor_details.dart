@@ -1,11 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../core_utils/export_dependency.dart';
-import '../../../../network/models/response/dummy/vendor_list_response.dart';
+import '../../../../network/models/response/dashboard/dashboard_response.dart';
 
 class VendorDetails extends StatelessWidget {
-  final VendorListResponse vendor;
-  const VendorDetails({super.key, required this.vendor});
+  final Doctor doctor;
+  const VendorDetails({super.key, required this.doctor});
 
   @override
   Widget build(BuildContext context) {
@@ -24,42 +25,51 @@ class VendorDetails extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
+                // Container(
+                //   height: AppDimens.height90,
+                //   width: AppDimens.height140,
+                //   decoration: BoxDecoration(
+                //       image: DecorationImage(
+                //         image: AssetImage(
+                //           doctor.image!,
+                //         ),
+                //         fit: BoxFit.fill,
+                //       ),
+                //       borderRadius: BorderRadius.all(
+                //         Radius.circular(AppDimens.radius10),
+                //       )),
+                // ),
+                CachedNetworkImage(
+                  imageUrl: doctor.image == null ? "" : doctor.image ?? "",
+                  placeholder: (context, url) => LinearProgressIndicator(
+                    color: AppColors.primaryColor,
+                    backgroundColor: AppColors.whiteColor,
+                  ),
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.fill),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(AppDimens.radius10),
+                        )),
+                  ),
+                  errorWidget: (context, url, error) =>
+                      Image.asset(AppImage.dr1Image),
                   height: AppDimens.height90,
-                  width: AppDimens.height140,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          vendor.image!,
-                        ),
-                        fit: BoxFit.fill,
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(AppDimens.radius10),
-                      )),
+                  width: AppDimens.height150,
+                  fit: BoxFit.fill,
                 ),
                 Positioned(
                     top: 5,
                     right: 5,
                     child: Icon(
                       Icons.favorite,
-                      color: vendor.isFav == 1
+                      color: doctor.isFavorite == 1
                           ? AppColors.redColor
                           : AppColors.whiteColor,
                     ))
               ],
             ),
-            // CachedNetworkImage(
-            //   imageUrl: vendor.image == null ? "" : vendor.image ?? "",
-            //   placeholder: (context, url) => LinearProgressIndicator(
-            //     color: AppColors.primaryColor,
-            //   ),
-            //   errorWidget: (context, url, error) =>
-            //       Image.asset(AppImage.imageNotAvailable),
-            //   height: AppDimens.height55,
-            //   width: AppDimens.height150,
-            //   fit: BoxFit.fill,
-            // ),
             SizedBox(
               height: AppDimens.height5,
             ),
@@ -67,8 +77,8 @@ class VendorDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  vendor.status!.toUpperCase(),
-                  style: vendor.status == "CLOSED"
+                  doctor.status == 0 ? "CLOSED" : "OPEN NOW",
+                  style: doctor.status == 0
                       ? AppStyle.vendorStatusTextStyle.copyWith(
                           color: const Color(0XFFEA0D0D),
                           fontSize: AppDimens.fontSize10)
@@ -81,7 +91,7 @@ class VendorDetails extends StatelessWidget {
                   width: AppDimens.width5,
                 ),
                 Text(
-                  "${vendor.startTime.toString()} - ${vendor.closeTime.toString()}",
+                  "${doctor.startTime.toString()} - ${doctor.endTime.toString()}",
                   style: AppStyle.vendorWorkingHourTextStyle
                       .copyWith(fontSize: AppDimens.fontSize10),
                   maxLines: 1,
@@ -95,7 +105,7 @@ class VendorDetails extends StatelessWidget {
             SizedBox(
               width: AppDimens.height110,
               child: Text(
-                vendor.name.toString(),
+                doctor.title.toString(),
                 style: AppStyle.vendorNameTextStyle,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -107,7 +117,7 @@ class VendorDetails extends StatelessWidget {
             SizedBox(
               width: AppDimens.width100,
               child: Text(
-                vendor.type.toString(),
+                doctor.profName.toString(),
                 style: AppStyle.vendorTypeTextStyle,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -117,7 +127,7 @@ class VendorDetails extends StatelessWidget {
               height: AppDimens.height5,
             ),
             RatingBar.builder(
-              initialRating: vendor.rating ?? 1.0,
+              initialRating: double.parse(doctor.averageRate ?? "1.0"),
               minRating: 1,
               direction: Axis.horizontal,
               allowHalfRating: true,

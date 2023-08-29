@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AppDimens {
   // ============================= App Height===================================================
 
+  static double height = 690.h;
   static double height2 = 2.h;
   static double height3 = 3.h;
   static double height4 = 4.h;
@@ -46,6 +47,7 @@ class AppDimens {
   static double height300 = 300.h;
   static double height320 = 320.h;
   static double height420 = 420.h;
+  static double height500 = 500.h;
   static double height600 = 600.h;
   static double height620 = 620.h;
   static double height650 = 650.h;
@@ -54,6 +56,7 @@ class AppDimens {
   static double height900 = 900.h;
 
   // ============================= App Width===================================================
+  static double width = 360.w;
   static double width5 = 5.w;
   static double width8 = 8.w;
   static double width10 = 10.w;
@@ -98,6 +101,7 @@ class AppDimens {
   static double radius75 = 75.r;
   // ============================= App Font Size ===================================================
   static double fontSize8 = 8.sp;
+  static double fontSize9 = 9.sp;
   static double fontSize10 = 10.sp;
   static double fontSize12 = 12.sp;
   static double fontSize14 = 14.sp;

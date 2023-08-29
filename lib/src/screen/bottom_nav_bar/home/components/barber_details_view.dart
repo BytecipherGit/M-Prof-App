@@ -1,12 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../core_utils/export_dependency.dart';
 import '../../../../helpers/routes/route_name.dart';
-import '../../../../network/models/response/dummy/barber_list.dart';
+import '../../../../network/models/response/dashboard/dashboard_response.dart';
 
 class BarberDetailsView extends StatelessWidget {
-  final BarberList barber;
-
+  final Barber barber;
   const BarberDetailsView({
     super.key,
     required this.barber,
@@ -28,26 +28,47 @@ class BarberDetailsView extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
-                  height: AppDimens.height110,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
+                CachedNetworkImage(
+                  imageUrl: barber.image == null ? "" : barber.image ?? "",
+                  placeholder: (context, url) => LinearProgressIndicator(
+                    color: AppColors.primaryColor,
+                    backgroundColor: AppColors.whiteColor,
+                  ),
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.fill),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(AppDimens.radius10),
                           topRight: Radius.circular(AppDimens.radius10)),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          barber.image!,
-                        ),
-                        fit: BoxFit.fill,
-                      )),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) =>
+                      Image.asset(AppImage.bar1Image),
+                  height: AppDimens.height90,
+                  width: AppDimens.height150,
+                  fit: BoxFit.fill,
                 ),
+                // Container(
+                //   height: AppDimens.height110,
+                //   width: double.maxFinite,
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.only(
+                //           topLeft: Radius.circular(AppDimens.radius10),
+                //           topRight: Radius.circular(AppDimens.radius10)),
+                //       image: DecorationImage(
+                //         image: AssetImage(
+                //           barber.image!,
+                //         ),
+                //         fit: BoxFit.fill,
+                //       )),
+                // ),
                 Positioned(
                     top: 5,
                     right: 5,
                     child: Icon(
                       Icons.favorite,
-                      color: barber.isFav == 1
+                      color: barber.isFavorite == 1
                           ? AppColors.redColor
                           : AppColors.whiteColor,
                     ))
@@ -64,15 +85,16 @@ class BarberDetailsView extends StatelessWidget {
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        barber.status!.toUpperCase(),
-                        style: barber.status == "CLOSED"
+                        barber.status == 0 ? "CLOSED" : "OPEN NOW",
+                        style: barber.status == 0
                             ? AppStyle.vendorStatusTextStyle.copyWith(
                                 color: const Color(0XFFEA0D0D),
-                                fontSize: AppDimens.fontSize10)
+                                fontSize: AppDimens.fontSize8)
                             : AppStyle.vendorStatusTextStyle
-                                .copyWith(fontSize: AppDimens.fontSize10),
+                                .copyWith(fontSize: AppDimens.fontSize8),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
@@ -80,9 +102,9 @@ class BarberDetailsView extends StatelessWidget {
                         width: AppDimens.width5,
                       ),
                       Text(
-                        "${barber.startTime.toString()} - ${barber.closeTime.toString()}",
+                        "${barber.startTime.toString().trim()} - ${barber.endTime.toString().trim()}",
                         style: AppStyle.vendorWorkingHourTextStyle
-                            .copyWith(fontSize: AppDimens.fontSize10),
+                            .copyWith(fontSize: AppDimens.fontSize8),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -94,7 +116,7 @@ class BarberDetailsView extends StatelessWidget {
                   SizedBox(
                     width: AppDimens.height110,
                     child: Text(
-                      barber.name.toString(),
+                      barber.profName.toString(),
                       style: AppStyle.vendorNameTextStyle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -115,7 +137,7 @@ class BarberDetailsView extends StatelessWidget {
                           width: AppDimens.height3,
                         ),
                         Text(
-                          barber.location.toString(),
+                          barber.address.toString(),
                           style: AppStyle.vendorTypeTextStyle,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -127,7 +149,7 @@ class BarberDetailsView extends StatelessWidget {
                     height: AppDimens.height3,
                   ),
                   RatingBar.builder(
-                    initialRating: barber.rating ?? 1.0,
+                    initialRating: barber.averageRate ?? 1.0,
                     minRating: 1,
                     direction: Axis.horizontal,
                     allowHalfRating: true,

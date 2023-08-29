@@ -1,3 +1,5 @@
+import 'package:m_proof/src/network/models/response/favorite/favorite_response.dart';
+
 import '../local_cache/preference_utils.dart';
 import '../network/NetworkUrls/app_network_urls.dart';
 import '../network/app_logger.dart';
@@ -24,6 +26,25 @@ class HomeRepository {
       AppLogger.logger.d("getDashBoardApi: $response");
 
       return response = DashBoardResponse.fromJson(response);
+    } catch (e) {
+      AppLogger.logger.d("getDashBoardApiError: $e");
+    }
+    return null;
+  }
+
+  Future<FavoriteResponse?> getFavoritesApi() async {
+    String accessToken = PreferenceUtils.getUserAccessToken() ?? "";
+    try {
+      final headers = {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer $accessToken'
+      };
+      dynamic response = await NetworkApiService.apiServicesInstance
+          .callGetApiResponse(
+              url: AppNetworkUrls.favoritesApiEndPoint, myHeaders: headers);
+      AppLogger.logger.d("getDashBoardApi: $response");
+
+      return response = FavoriteResponse.fromJson(response);
     } catch (e) {
       AppLogger.logger.d("getDashBoardApiError: $e");
     }

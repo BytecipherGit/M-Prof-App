@@ -1,10 +1,10 @@
 import 'package:m_proof/src/helpers/routes/route_name.dart';
 
 import '../../../../core_utils/export_dependency.dart';
-import '../../../../network/models/response/dummy/category_list.dart';
+import '../../../../network/models/response/dashboard/dashboard_response.dart';
 
 class CategoryDetailsView extends StatelessWidget {
-  final CategoryList category;
+  final Category category;
   const CategoryDetailsView({super.key, required this.category});
 
   @override
@@ -30,7 +30,7 @@ class CategoryDetailsView extends StatelessWidget {
             ),
           ),
           Text(
-            category.name ?? "",
+            category.category ?? "",
             style: AppStyle.categoryTitleTextStyle,
             textAlign: TextAlign.center,
             maxLines: 2,

@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:m_proof/src/core_utils/flush_bar_message.dart';
 import 'package:m_proof/src/network/models/response/dashboard/dashboard_response.dart';
 import 'package:m_proof/src/network/models/response/dummy/category_list.dart';
+import 'package:m_proof/src/network/models/response/favorite/favorite_response.dart';
 
 import '../../core_utils/export_dependency.dart';
 import '../../network/api_response/api_response.dart';
@@ -274,7 +275,7 @@ class HomeProviderVm extends ChangeNotifier {
     return 'Evening';
   }
 
-  String? currentAddress;
+  String? currentAddress = "Searching...";
   Position? _currentPosition;
 
   Future<bool> _handleLocationPermission(BuildContext context) async {
@@ -319,6 +320,7 @@ class HomeProviderVm extends ChangeNotifier {
     }).catchError((e) {
       debugPrint(e);
     });
+    notifyListeners();
   }
 
   Future<void> _getAddressFromLatLng(Position position) async {
@@ -328,12 +330,14 @@ class HomeProviderVm extends ChangeNotifier {
       Placemark place = placemarks[0];
       var currentAddress2 =
           '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
-      currentAddress = ' ${place.locality}';
+      currentAddress = '${place.locality}';
       AppLogger.logger.d("currentAddress2 $currentAddress2");
       AppLogger.logger.d("currentAddress $currentAddress");
+      notifyListeners();
     }).catchError((e) {
       debugPrint(e);
     });
+    notifyListeners();
   }
 
   String timeAgo(DateTime d) {
@@ -360,6 +364,7 @@ class HomeProviderVm extends ChangeNotifier {
   }
 
   ApiResponse<DashBoardResponse> dashBoardList = ApiResponse.loading();
+  ApiResponse<FavoriteResponse> favoriteList = ApiResponse.loading();
   List<Category> categoryList = [];
   List<Doctor> doctor = [];
   List<Barber> barbers = [];
@@ -367,6 +372,12 @@ class HomeProviderVm extends ChangeNotifier {
   List<Barber> yogaInstructor = [];
   setDashboardData(ApiResponse<DashBoardResponse> response) {
     dashBoardList = response;
+    AppLogger.logger.d("getUserJobListError: $dashBoardList");
+    notifyListeners();
+  }
+
+  setFavoriteData(ApiResponse<FavoriteResponse> response) {
+    favoriteList = response;
     AppLogger.logger.d("getUserJobListError: $dashBoardList");
     notifyListeners();
   }
@@ -379,24 +390,7 @@ class HomeProviderVm extends ChangeNotifier {
       await HomeRepository.homeRepositoryInstance
           .getDashBoardApi()
           .then((value) {
-        if (value!.data != null) {
-          for (var element in value.data!.category!) {
-            categoryList.add(element);
-          }
-          for (var element in value.data!.doctor!) {
-            doctor.add(element);
-          }
-          for (var element in value.data!.barbers!) {
-            barbers.add(element);
-          }
-          for (var element in value.data!.gymTrainer!) {
-            gymTrainer.add(element);
-          }
-          for (var element in value.data!.yogaInstructor!) {
-            yogaInstructor.add(element);
-          }
-        }
-        AppLogger.logger.d("fetchDashBoardApi: ${value.data}");
+        AppLogger.logger.d("fetchDashBoardApi: ${value!.data}");
         setDashboardData(ApiResponse.completed(value));
       }).onError((error, stackTrace) {
         setDashboardData(ApiResponse.error(error.toString()));
@@ -404,6 +398,25 @@ class HomeProviderVm extends ChangeNotifier {
     } else {
       setDashboardData(
           ApiResponse.internet("No internet connection available"));
+    }
+    notifyListeners();
+  }
+
+  Future<void> fetchFavoritesApi() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult != ConnectivityResult.none) {
+      setFavoriteData(ApiResponse.loading());
+      // Call Function from the Repository Class
+      await HomeRepository.homeRepositoryInstance
+          .getFavoritesApi()
+          .then((value) {
+        AppLogger.logger.d("fetchFavoritesApi: ${value!.data}");
+        setFavoriteData(ApiResponse.completed(value));
+      }).onError((error, stackTrace) {
+        setFavoriteData(ApiResponse.error(error.toString()));
+      });
+    } else {
+      setFavoriteData(ApiResponse.internet("No internet connection available"));
     }
     notifyListeners();
   }

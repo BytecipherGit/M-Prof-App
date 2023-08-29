@@ -20,7 +20,6 @@ import '../../repositories/auth_repository.dart';
 
 class AuthProvider with ChangeNotifier {
   bool _loading = false;
-
   bool get loading => _loading;
   String countryCode = "+91";
   ValueNotifier<bool> loginPassObscureTextValue = ValueNotifier(true);

@@ -56,6 +56,7 @@ dependencies:
   email_validator: ^2.1.17
   geolocator: ^10.0.0
   geocoding: ^2.1.0
+  lottie: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +85,7 @@ flutter:
    - assets/images/
    - assets/icons/
    - assets/logo/
+   - assets/no_internet.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
