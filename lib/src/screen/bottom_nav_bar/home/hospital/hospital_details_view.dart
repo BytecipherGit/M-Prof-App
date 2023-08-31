@@ -1,4 +1,5 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:m_proof/src/helpers/routes/route_name.dart';
 import 'package:m_proof/src/view_model_providers/home_vm/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -433,7 +434,7 @@ class HospitalDetailsView extends StatelessWidget {
                       height: AppDimens.height10,
                     ),
                     SizedBox(
-                      height: AppDimens.height150,
+                      height: AppDimens.height160,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: modal.vendorList!.length,
@@ -571,7 +572,12 @@ class HospitalDetailsView extends StatelessWidget {
                       color: AppColors.primaryColor,
                       text: "Book Appointment",
                       textColor: AppColors.whiteColor,
-                      onPressedFunction: () {},
+                      onPressedFunction: () {
+                        Navigator.pushNamed(context, RouteName.bookingFormScreen);
+                      },
+                    ),
+                    SizedBox(
+                      height: AppDimens.height10,
                     ),
                   ],
                 );

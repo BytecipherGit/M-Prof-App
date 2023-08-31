@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:m_proof/src/view_model_providers/favorite_vm/favorite_view_model.dart';
+import 'package:m_proof/src/view_model_providers/home_vm/home_view_model.dart';
 
 import '../../../../core_utils/export_dependency.dart';
 import '../../../../helpers/routes/route_name.dart';
@@ -7,9 +9,13 @@ import '../../../../network/models/response/dashboard/dashboard_response.dart';
 
 class BarberDetailsView extends StatelessWidget {
   final Barber barber;
+  final FavoriteProviderVm favoriteProviderVm;
+  final HomeProviderVm homeProviderVm;
   const BarberDetailsView({
     super.key,
     required this.barber,
+    required this.favoriteProviderVm,
+    required this.homeProviderVm,
   });
 
   @override
@@ -46,7 +52,7 @@ class BarberDetailsView extends StatelessWidget {
                   errorWidget: (context, url, error) =>
                       Image.asset(AppImage.bar1Image),
                   height: AppDimens.height90,
-                  width: AppDimens.height150,
+                  width: AppDimens.width150,
                   fit: BoxFit.fill,
                 ),
                 // Container(
@@ -66,11 +72,18 @@ class BarberDetailsView extends StatelessWidget {
                 Positioned(
                     top: 5,
                     right: 5,
-                    child: Icon(
-                      Icons.favorite,
-                      color: barber.isFavorite == 1
-                          ? AppColors.redColor
-                          : AppColors.whiteColor,
+                    child: GestureDetector(
+                      onTap: () {
+                        favoriteProviderVm.setAsFavoriteApi(
+                            profId: barber.id!, context: context);
+                        homeProviderVm.fetchDashBoardApi();
+                      },
+                      child: Icon(
+                        Icons.favorite,
+                        color: barber.isFavorite == 1
+                            ? AppColors.redColor
+                            : AppColors.whiteColor,
+                      ),
                     ))
               ],
             ),

@@ -32,6 +32,7 @@ class AppDimens {
   static double height120 = 120.h;
   static double height140 = 130.h;
   static double height150 = 150.h;
+  static double height160 = 160.h;
   static double height170 = 170.h;
   static double height175 = 175.h;
   static double height180 = 180.h;
@@ -83,6 +84,7 @@ class AppDimens {
   static double width155 = 155.w;
   static double width160 = 160.w;
   static double width170 = 170.w;
+  static double width180 = 180.w;
   static double width200 = 200.w;
   static double width220 = 220.w;
   static double width250 = 250.w;

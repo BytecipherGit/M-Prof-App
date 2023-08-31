@@ -111,13 +111,13 @@ class AppStyle {
   );
   static TextStyle vendorNameTextStyle = TextStyle(
     color: AppColors.vendorNameTextColor,
-    fontSize: AppDimens.fontSize14,
+    fontSize: AppDimens.fontSize12,
     fontWeight: FontWeight.w600,
     fontFamily: 'Gilroy-SemiBold',
   );
   static TextStyle vendorTypeTextStyle = TextStyle(
     color: AppColors.vendorTypeTextColor,
-    fontSize: AppDimens.fontSize12,
+    fontSize: AppDimens.fontSize10,
     fontWeight: FontWeight.w400,
     fontFamily: 'Gilroy-Medium',
   );

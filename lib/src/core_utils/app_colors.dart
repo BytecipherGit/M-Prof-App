@@ -36,4 +36,6 @@ class AppColors {
   static Color reviewCommentTextColor = const Color(0XFFADADAD);
   static Color reviewTimeAgoTextColor = const Color(0XFF8B97A4);
   static Color reviewerNameTextColor = const Color(0XFF0F0F0F);
+  static Color newBoarderTextColor = const Color(0XFFECECEE);
+
 }

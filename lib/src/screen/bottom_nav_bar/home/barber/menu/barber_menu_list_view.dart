@@ -1,3 +1,4 @@
+import 'package:m_proof/src/helpers/routes/route_name.dart';
 import 'package:m_proof/src/view_model_providers/favorite_vm/favorite_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -131,7 +132,9 @@ class _BarberMenuListViewState extends State<BarberMenuListView> {
                   color: AppColors.primaryColor,
                   text: "Next",
                   textColor: AppColors.whiteColor,
-                  onPressedFunction: () {},
+                  onPressedFunction: () {
+                    Navigator.pushNamed(context, RouteName.overviewScreen);
+                  },
                 ),
               ),
             ],

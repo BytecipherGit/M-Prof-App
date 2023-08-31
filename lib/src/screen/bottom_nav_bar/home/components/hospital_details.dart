@@ -65,7 +65,7 @@ class HospitalDetails extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: AppDimens.width155,
+                        width: AppDimens.width180,
                         child: Row(
                           children: [
                             Text(
@@ -73,9 +73,9 @@ class HospitalDetails extends StatelessWidget {
                               style: hospital.status == "CLOSED"
                                   ? AppStyle.vendorStatusTextStyle.copyWith(
                                       color: const Color(0XFFEA0D0D),
-                                      fontSize: AppDimens.fontSize10)
+                                      fontSize: AppDimens.fontSize9)
                                   : AppStyle.vendorStatusTextStyle
-                                      .copyWith(fontSize: AppDimens.fontSize10),
+                                      .copyWith(fontSize: AppDimens.fontSize9),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
@@ -85,7 +85,7 @@ class HospitalDetails extends StatelessWidget {
                             Text(
                               "${hospital.startTime.toString()} - ${hospital.closeTime.toString()}",
                               style: AppStyle.vendorWorkingHourTextStyle
-                                  .copyWith(fontSize: AppDimens.fontSize10),
+                                  .copyWith(fontSize: AppDimens.fontSize9),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -93,6 +93,7 @@ class HospitalDetails extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
+                        width: AppDimens.width40,
                         child: Text(
                           hospital.distance.toString(),
                           style: AppStyle.vendorTypeTextStyle
@@ -166,8 +167,7 @@ class HospitalDetails extends StatelessWidget {
                         width: AppDimens.width140,
                         child: Text(
                           hospital.location.toString(),
-                          style: AppStyle.vendorTypeTextStyle
-                              .copyWith(fontSize: AppDimens.fontSize12),
+                          style: AppStyle.vendorTypeTextStyle,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),

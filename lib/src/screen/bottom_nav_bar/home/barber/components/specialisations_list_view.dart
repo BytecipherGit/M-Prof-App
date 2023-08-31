@@ -18,7 +18,7 @@ class SpecialisationsListView extends StatelessWidget {
             width: AppDimens.height60,
             padding: EdgeInsets.all(AppDimens.width20),
             margin: EdgeInsets.symmetric(
-                vertical: AppDimens.height10, horizontal: AppDimens.width8),
+                vertical: AppDimens.height10, horizontal: AppDimens.width10),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
@@ -27,8 +27,8 @@ class SpecialisationsListView extends StatelessWidget {
             child: Image.asset(
               specialisations.image!,
               fit: BoxFit.fill,
-              height: AppDimens.height40,
-              width: AppDimens.height40,
+              height: AppDimens.height50,
+              width: AppDimens.height50,
             ),
           ),
           Text(

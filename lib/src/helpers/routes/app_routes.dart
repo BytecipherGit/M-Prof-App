@@ -5,6 +5,8 @@ import '../../network/models/request/auth/signup_request.dart';
 import '../../screen/bottom_nav_bar/bottom_nav_bar.dart';
 import '../../screen/bottom_nav_bar/home/barber/barber_details_view.dart';
 import '../../screen/bottom_nav_bar/home/barber/menu/barber_menu_list_view.dart';
+import '../../screen/bottom_nav_bar/home/barber/overview/overview_view.dart';
+import '../../screen/bottom_nav_bar/home/hospital/booking/booking_form_view.dart';
 import '../../screen/bottom_nav_bar/home/hospital/hospital_details_view.dart';
 import '../../screen/bottom_nav_bar/home/music/music_details_view.dart';
 import '../../screen/bottom_nav_bar/near_by/components/vender_list_by_category_view.dart';
@@ -69,9 +71,13 @@ class AppRoute {
       case RouteName.barberMenuListScreen:
         return MaterialPageRoute(
             builder: (context) => const BarberMenuListView());
+      case RouteName.overviewScreen:
+        return MaterialPageRoute(builder: (context) => const OverViewView());
       case RouteName.hospitalDetailsScreen:
         return MaterialPageRoute(
             builder: (context) => const HospitalDetailsView());
+      case RouteName.bookingFormScreen:
+        return MaterialPageRoute(builder: (context) => const BookingFormView());
       case RouteName.musicDetailsScreen:
         return MaterialPageRoute(
             builder: (context) => const MusicDetailsView());

@@ -2,7 +2,7 @@ class UserResponse {
   bool? success;
   int? code;
   User? data;
-  AccessToken? accessToken;
+  String? accessToken;
   String? message;
 
   UserResponse({
@@ -17,9 +17,7 @@ class UserResponse {
         success: json["success"],
         code: json["code"],
         data: json["data"] == null ? null : User.fromJson(json["data"]),
-        accessToken: json["access_token"] == null
-            ? null
-            : AccessToken.fromJson(json["access_token"]),
+        accessToken: json["access_token"],
         message: json["message"],
       );
 
@@ -27,27 +25,10 @@ class UserResponse {
         "success": success,
         "code": code,
         "data": data!.toJson(),
-        "access_token": accessToken!.toJson(),
+        "access_token": accessToken,
         "message": message,
       };
 }
-
-class AccessToken {
-  String? accessToken;
-
-  AccessToken({
-    this.accessToken,
-  });
-
-  factory AccessToken.fromJson(Map<String, dynamic> json) => AccessToken(
-        accessToken: json["access_token"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "access_token": accessToken,
-      };
-}
-
 class User {
   int? id;
   dynamic image;

@@ -22,4 +22,6 @@ class RouteName {
   static const String barberMenuListScreen = "/barberMenuList";
   static const String hospitalDetailsScreen = "/hospitalDetails";
   static const String musicDetailsScreen = "/musicDetails";
+  static const String overviewScreen = "/overview";
+  static const String bookingFormScreen = "/bookingForm";
 }

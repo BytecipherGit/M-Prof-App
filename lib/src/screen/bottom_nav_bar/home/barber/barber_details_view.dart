@@ -346,7 +346,7 @@ class BarberDetailsView extends StatelessWidget {
                       height: AppDimens.height10,
                     ),
                     SizedBox(
-                      height: AppDimens.height150,
+                      height: AppDimens.height160,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: modal.vendorList!.length,
@@ -465,6 +465,9 @@ class BarberDetailsView extends StatelessWidget {
                       onPressedFunction: () {
                         Navigator.pushNamed(context, RouteName.barberMenuListScreen);
                       },
+                    ),
+                    SizedBox(
+                      height: AppDimens.height10,
                     ),
                   ],
                 );

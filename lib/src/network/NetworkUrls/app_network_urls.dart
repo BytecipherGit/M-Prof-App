@@ -7,8 +7,11 @@ class AppNetworkUrls {
       '$_baseUrl/api/verify-register-otp';
   static const verifyLoginOTPApiEndPoint = '$_baseUrl/api/verify-login-otp';
   static const setMpinApiEndPoint = '$_baseUrl/api/set-mpin';
-  static const favoritesApiEndPoint = '$_baseUrl/api/favorites';
   static const dashboardApiEndPoint = '$_baseUrl/api/dashboard';
+  static const setAsFavoritesApiEndPoint = '$_baseUrl/api/favorites/store';
+  static const favoritesApiEndPoint = '$_baseUrl/api/favorites';
+  static String favoritesByCategoryApiEndPoint({required String category}) =>
+      '$_baseUrl/api/favorite/$category';
   static const forgotPasswordApiEndPoint = '$_baseUrl/sendOTP';
   static const resetPasswordApiEndPoint = '$_baseUrl/resetPassword';
   static const changePasswordApiEndPoint = '$_baseUrl/changePassword';

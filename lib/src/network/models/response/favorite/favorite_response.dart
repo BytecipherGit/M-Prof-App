@@ -36,8 +36,10 @@ class Favorite {
   String? endTime;
   int? status;
   String? profName;
+  String? image;
   String? title;
-  String? averageRate;
+  String? location;
+  double? averageRate;
 
   Favorite({
     this.profId,
@@ -47,7 +49,9 @@ class Favorite {
     this.endTime,
     this.status,
     this.profName,
+    this.image,
     this.title,
+    this.location,
     this.averageRate,
   });
 
@@ -59,8 +63,10 @@ class Favorite {
         endTime: json["end_time"],
         status: json["status"],
         profName: json["profName"],
+        image: json["image"],
         title: json["title"],
         averageRate: json["average_rate"],
+        location: json["location"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -71,7 +77,9 @@ class Favorite {
         "end_time": endTime,
         "status": status,
         "profName": profName,
+        "image": image,
         "title": title,
         "average_rate": averageRate,
+        "location": location,
       };
 }

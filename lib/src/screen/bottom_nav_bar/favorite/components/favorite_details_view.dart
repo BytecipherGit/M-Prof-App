@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import '../../../../core_utils/export_dependency.dart';
-import '../../../../network/models/response/dummy/favorite_list.dart';
+import '../../../../network/models/response/favorite/favorite_response.dart';
 
 class FavoriteDetailsView extends StatelessWidget {
-  final FavoriteList favorite;
+  final Favorite favorite;
 
   const FavoriteDetailsView({
     super.key,
@@ -25,26 +25,32 @@ class FavoriteDetailsView extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
-                  height: AppDimens.height100,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                CachedNetworkImage(
+                  imageUrl: favorite.image == null ? "" : favorite.image ?? "",
+                  placeholder: (context, url) => LinearProgressIndicator(
+                    color: AppColors.primaryColor,
+                    backgroundColor: AppColors.whiteColor,
+                  ),
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.fill),
+                        borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(AppDimens.radius10),
-                          topRight: Radius.circular(AppDimens.radius10)),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          favorite.image!,
-                        ),
-                        fit: BoxFit.fill,
-                      )),
+                          topRight: Radius.circular(AppDimens.radius10),
+                        )),
+                  ),
+                  errorWidget: (context, url, error) =>
+                      Image.asset(AppImage.dr1Image),
+                  height: AppDimens.height90,
+                  fit: BoxFit.fill,
                 ),
                 Positioned(
                     top: 5,
                     right: 5,
                     child: Icon(
                       Icons.favorite,
-                      color: favorite.isFav == 1
+                      color: favorite.isFavorite == 1
                           ? AppColors.redColor
                           : AppColors.whiteColor,
                     ))
@@ -63,13 +69,13 @@ class FavoriteDetailsView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        favorite.status!.toUpperCase(),
-                        style: favorite.status == "CLOSED"
+                        favorite.status == 0 ? "CLOSED" : "OPEN NOW",
+                        style: favorite.status == 0
                             ? AppStyle.vendorStatusTextStyle.copyWith(
                                 color: const Color(0XFFEA0D0D),
-                                fontSize: AppDimens.fontSize10)
+                                fontSize: AppDimens.fontSize8)
                             : AppStyle.vendorStatusTextStyle
-                                .copyWith(fontSize: AppDimens.fontSize10),
+                                .copyWith(fontSize: AppDimens.fontSize8),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
@@ -77,9 +83,9 @@ class FavoriteDetailsView extends StatelessWidget {
                         width: AppDimens.width5,
                       ),
                       Text(
-                        "${favorite.startTime.toString()} - ${favorite.closeTime.toString()}",
+                        "${favorite.startTime.toString()} - ${favorite.endTime.toString()}",
                         style: AppStyle.vendorWorkingHourTextStyle
-                            .copyWith(fontSize: AppDimens.fontSize10),
+                            .copyWith(fontSize: AppDimens.fontSize8),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -91,7 +97,7 @@ class FavoriteDetailsView extends StatelessWidget {
                   SizedBox(
                     width: AppDimens.height110,
                     child: Text(
-                      favorite.name.toString(),
+                      favorite.profName.toString(),
                       style: AppStyle.vendorNameTextStyle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -100,7 +106,7 @@ class FavoriteDetailsView extends StatelessWidget {
                   SizedBox(
                     height: AppDimens.height3,
                   ),
-                  if (favorite.location != null)
+                  if (favorite.category != "Doctor")
                     SizedBox(
                       width: double.maxFinite,
                       child: Row(
@@ -119,9 +125,9 @@ class FavoriteDetailsView extends StatelessWidget {
                         ],
                       ),
                     ),
-                  if (favorite.type != null)
+                  if (favorite.category == "Doctor")
                     Text(
-                      favorite.type.toString(),
+                      favorite.title.toString(),
                       style: AppStyle.vendorTypeTextStyle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -130,7 +136,7 @@ class FavoriteDetailsView extends StatelessWidget {
                     height: AppDimens.height3,
                   ),
                   RatingBar.builder(
-                    initialRating: favorite.rating ?? 1.0,
+                    initialRating: favorite.averageRate ?? 1.0,
                     minRating: 1,
                     direction: Axis.horizontal,
                     allowHalfRating: true,

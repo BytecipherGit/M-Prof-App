@@ -184,7 +184,7 @@ class PreferenceUtils {
     await PreferenceUtils.setString(
         Strings.countryCode, userResponse.data!.countryCode ?? "");
     await PreferenceUtils.setString(
-        Strings.accessToken, userResponse.accessToken!.accessToken ?? "");
+        Strings.accessToken, userResponse.accessToken ?? "");
   }
 
   static Future setUpdateProfileResponse(UserResponse userResponse) async {

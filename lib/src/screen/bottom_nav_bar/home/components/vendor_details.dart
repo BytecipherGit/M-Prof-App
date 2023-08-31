@@ -3,10 +3,19 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../core_utils/export_dependency.dart';
 import '../../../../network/models/response/dashboard/dashboard_response.dart';
+import '../../../../view_model_providers/favorite_vm/favorite_view_model.dart';
+import '../../../../view_model_providers/home_vm/home_view_model.dart';
 
 class VendorDetails extends StatelessWidget {
   final Doctor doctor;
-  const VendorDetails({super.key, required this.doctor});
+
+  final FavoriteProviderVm favoriteProviderVm;
+  final HomeProviderVm homeProviderVm;
+  const VendorDetails(
+      {super.key,
+      required this.doctor,
+      required this.favoriteProviderVm,
+      required this.homeProviderVm});
 
   @override
   Widget build(BuildContext context) {
@@ -56,17 +65,24 @@ class VendorDetails extends StatelessWidget {
                   errorWidget: (context, url, error) =>
                       Image.asset(AppImage.dr1Image),
                   height: AppDimens.height90,
-                  width: AppDimens.height150,
+                  width: AppDimens.width130,
                   fit: BoxFit.fill,
                 ),
                 Positioned(
                     top: 5,
                     right: 5,
-                    child: Icon(
-                      Icons.favorite,
-                      color: doctor.isFavorite == 1
-                          ? AppColors.redColor
-                          : AppColors.whiteColor,
+                    child: GestureDetector(
+                      onTap: () {
+                        favoriteProviderVm.setAsFavoriteApi(
+                            profId: doctor.id!, context: context);
+                        homeProviderVm.fetchDashBoardApi();
+                      },
+                      child: Icon(
+                        Icons.favorite,
+                        color: doctor.isFavorite == 1
+                            ? AppColors.redColor
+                            : AppColors.whiteColor,
+                      ),
                     ))
               ],
             ),
@@ -81,9 +97,9 @@ class VendorDetails extends StatelessWidget {
                   style: doctor.status == 0
                       ? AppStyle.vendorStatusTextStyle.copyWith(
                           color: const Color(0XFFEA0D0D),
-                          fontSize: AppDimens.fontSize10)
+                          fontSize: AppDimens.fontSize8)
                       : AppStyle.vendorStatusTextStyle
-                          .copyWith(fontSize: AppDimens.fontSize10),
+                          .copyWith(fontSize: AppDimens.fontSize8),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
@@ -93,7 +109,7 @@ class VendorDetails extends StatelessWidget {
                 Text(
                   "${doctor.startTime.toString()} - ${doctor.endTime.toString()}",
                   style: AppStyle.vendorWorkingHourTextStyle
-                      .copyWith(fontSize: AppDimens.fontSize10),
+                      .copyWith(fontSize: AppDimens.fontSize8),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

@@ -33,19 +33,23 @@ class LoginResponse {
 class LoginData {
   int? isMobileVerify;
   String? mpin;
+  String? otp;
 
   LoginData({
     this.isMobileVerify,
     this.mpin,
+    this.otp,
   });
 
   factory LoginData.fromJson(Map<String, dynamic> json) => LoginData(
         isMobileVerify: json["is_mobile_verify"],
         mpin: json["mpin"],
+        otp: json["otp"],
       );
 
   Map<String, dynamic> toJson() => {
         "is_mobile_verify": isMobileVerify,
         "mpin": mpin,
+        "otp": otp,
       };
 }

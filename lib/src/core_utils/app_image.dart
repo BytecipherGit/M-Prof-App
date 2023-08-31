@@ -38,6 +38,8 @@ class AppImage {
   static String sing1Image = "assets/images/sing1.png";
   static String sing2Image = "assets/images/sing2.png";
   static String sing3Image = "assets/images/sing3.png";
+  static String successImage = "assets/images/success.png";
+  static String alertImage = "assets/images/alert.png";
 
 
 

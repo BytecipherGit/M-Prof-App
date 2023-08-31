@@ -1,11 +1,9 @@
 import '../../../../../../core_utils/export_dependency.dart';
 import '../../../../../../widget/new_rounded_button.dart';
 
-class RateView extends StatelessWidget {
-  final int index;
-  const RateView({
+class ItemTileView extends StatelessWidget {
+  const ItemTileView({
     super.key,
-    required this.index,
   });
 
   @override
@@ -70,16 +68,10 @@ class RateView extends StatelessWidget {
               width: AppDimens.width110,
               height: AppDimens.height35,
               child: NewRoundedButton(
-                color: index % 2 == 0
-                    ? AppColors.whiteColor
-                    : AppColors.primaryColor,
-                borderColor: index % 2 == 0
-                    ? AppColors.borderColor
-                    : AppColors.primaryColor,
-                text: "₹ 250.00",
-                textColor: index % 2 == 0
-                    ? AppColors.blackColor
-                    : AppColors.whiteColor,
+                color: AppColors.whiteColor,
+                borderColor: AppColors.borderColor,
+                text: "Remove",
+                textColor: AppColors.blackColor,
                 onPressedFunction: () {},
               ),
             ),

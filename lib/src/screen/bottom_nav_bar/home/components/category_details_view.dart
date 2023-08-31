@@ -15,7 +15,7 @@ class CategoryDetailsView extends StatelessWidget {
         children: [
           RawMaterialButton(
             onPressed: () {
-              if (category.id == 3) {
+              if (category.id == 5) {
                 Navigator.pushNamed(context, RouteName.musicDetailsScreen);
               }
             },

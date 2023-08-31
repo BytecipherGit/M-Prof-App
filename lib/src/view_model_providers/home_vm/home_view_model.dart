@@ -4,7 +4,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:m_proof/src/core_utils/flush_bar_message.dart';
 import 'package:m_proof/src/network/models/response/dashboard/dashboard_response.dart';
 import 'package:m_proof/src/network/models/response/dummy/category_list.dart';
-import 'package:m_proof/src/network/models/response/favorite/favorite_response.dart';
 
 import '../../core_utils/export_dependency.dart';
 import '../../network/api_response/api_response.dart';
@@ -364,7 +363,6 @@ class HomeProviderVm extends ChangeNotifier {
   }
 
   ApiResponse<DashBoardResponse> dashBoardList = ApiResponse.loading();
-  ApiResponse<FavoriteResponse> favoriteList = ApiResponse.loading();
   List<Category> categoryList = [];
   List<Doctor> doctor = [];
   List<Barber> barbers = [];
@@ -372,12 +370,6 @@ class HomeProviderVm extends ChangeNotifier {
   List<Barber> yogaInstructor = [];
   setDashboardData(ApiResponse<DashBoardResponse> response) {
     dashBoardList = response;
-    AppLogger.logger.d("getUserJobListError: $dashBoardList");
-    notifyListeners();
-  }
-
-  setFavoriteData(ApiResponse<FavoriteResponse> response) {
-    favoriteList = response;
     AppLogger.logger.d("getUserJobListError: $dashBoardList");
     notifyListeners();
   }
@@ -398,25 +390,6 @@ class HomeProviderVm extends ChangeNotifier {
     } else {
       setDashboardData(
           ApiResponse.internet("No internet connection available"));
-    }
-    notifyListeners();
-  }
-
-  Future<void> fetchFavoritesApi() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult != ConnectivityResult.none) {
-      setFavoriteData(ApiResponse.loading());
-      // Call Function from the Repository Class
-      await HomeRepository.homeRepositoryInstance
-          .getFavoritesApi()
-          .then((value) {
-        AppLogger.logger.d("fetchFavoritesApi: ${value!.data}");
-        setFavoriteData(ApiResponse.completed(value));
-      }).onError((error, stackTrace) {
-        setFavoriteData(ApiResponse.error(error.toString()));
-      });
-    } else {
-      setFavoriteData(ApiResponse.internet("No internet connection available"));
     }
     notifyListeners();
   }

@@ -2,6 +2,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core_utils/export_dependency.dart';
 import '../../../network/api_response/api_response.dart';
+import '../../../view_model_providers/favorite_vm/favorite_view_model.dart';
 import '../../../view_model_providers/home_vm/home_view_model.dart';
 import '../../../widget/no_internet.dart';
 import 'components/barber_details_view.dart';
@@ -18,11 +19,14 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late HomeProviderVm homeProvider;
+  late FavoriteProviderVm favoriteProviderVm;
 
   @override
   void initState() {
     super.initState();
     homeProvider = Provider.of<HomeProviderVm>(context, listen: false);
+    favoriteProviderVm =
+        Provider.of<FavoriteProviderVm>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       homeProvider.fetchDashBoardApi();
     });
@@ -258,7 +262,12 @@ class _HomeViewState extends State<HomeView> {
                                           itemBuilder: (context, index) {
                                             var data = modal.dashBoardList.data!
                                                 .data!.doctor![index];
-                                            return VendorDetails(doctor: data);
+                                            return VendorDetails(
+                                              doctor: data,
+                                              favoriteProviderVm:
+                                                  favoriteProviderVm,
+                                              homeProviderVm: homeProvider,
+                                            );
                                           }),
                                     ),
                                     SizedBox(
@@ -311,6 +320,9 @@ class _HomeViewState extends State<HomeView> {
                                           if (index < 5) {
                                             return BarberDetailsView(
                                               barber: data,
+                                              favoriteProviderVm:
+                                                  favoriteProviderVm,
+                                              homeProviderVm: homeProvider,
                                             );
                                           } else {
                                             return Container();

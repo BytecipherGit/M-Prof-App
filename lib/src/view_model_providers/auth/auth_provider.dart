@@ -108,7 +108,7 @@ class AuthProvider with ChangeNotifier {
           .authLoginApi(data: data, url: AppNetworkUrls.loginEndPint)
           .then((value) {
         final loginResponse = LoginResponse.fromJson(value);
-        AppLogger.logger.d("UILoginHit: $loginResponse");
+        AppLogger.logger.d("UILoginHit: ${loginResponse.toJson()}");
 
         if (loginResponse.success == false) {
           AppLogger.logger.d("error message: ${loginResponse.message}");
